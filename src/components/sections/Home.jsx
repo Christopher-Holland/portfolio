@@ -114,6 +114,13 @@ export const Home = () => {
             const timeout = setTimeout(() => {
                 setStatCharIndex(0);
                 setStatLineIndex((statLineIndex + 1) % statsList.length); // Loop back to beginning
+                // Clear the next line to prevent flashing
+                setDisplayStats((prev) => {
+                    const newStats = [...prev];
+                    const nextIndex = (statLineIndex + 1) % statsList.length;
+                    newStats[nextIndex] = "";
+                    return newStats;
+                });
             }, 800);
             return () => clearTimeout(timeout);
         }

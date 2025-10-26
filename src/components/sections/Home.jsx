@@ -5,7 +5,7 @@ export const Home = () => {
   return (
     <section
       id="home"
-      className="min-h-screen flex items-center justify-center relative text-[#00ffcc] font-mono overflow-hidden"
+      className="min-h-screen flex items-start justify-start relative text-[#00ffcc] font-mono overflow-hidden"
     >
       {/* Subtle scanline overlay */}
       <div
@@ -23,7 +23,7 @@ export const Home = () => {
 
       <RevealOnScroll>
         <div className="text-center z-10 px-4">
-          <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 glow-text flicker">
+          <h1 className="text-2xl sm:text-xl md:text-3xl font-bold mb-6 glow-text flicker">
             Hi, I'm Christopher Holland
           </h1>
           <p className="text-[#00ffcc]/70 mb-8 text-xl max-w-lg mx-auto">

@@ -50,7 +50,7 @@ body::before {
 }
 
 .flicker {
-  animation: flicker 3s infinite;
+  animation: flicker 5s infinite;
 }
 
 /* ===== Glow Text Effect (subtle CRT) ===== */

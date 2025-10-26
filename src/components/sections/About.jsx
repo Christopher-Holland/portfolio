@@ -1,19 +1,77 @@
+import { useState, useEffect, useRef } from "react";
 import "../../index.css";
 import RevealOnScroll from "./RevealOnScroll";
 
-export const About = () => {
-    const frontendSkills = [
-        "HTML", "CSS", "JavaScript", "React", "Next.js", "Tailwind CSS",
-    ];
+// Import SVG logos as modules
+import HTML5Logo from "../logos/HTML5.svg";
+import CSS3Logo from "../logos/CSS3.svg";
+import JavaScriptLogo from "../logos/JavaScript.svg";
+import ReactLogo from "../logos/React.svg";
+import NextJSLogo from "../logos/Next.js.svg";
+import TailwindLogo from "../logos/Tailwind-CSS.svg";
+import NodeJSLogo from "../logos/Node.js.svg";
+import ExpressLogo from "../logos/Express.svg";
+import MongoDBLogo from "../logos/MongoDB.svg";
+import PostgreSQLLogo from "../logos/PostgresSQL.svg";
 
-    const backendSkills = [
-        "Node.js", "Express", "MongoDB", "PostgreSQL",
+// Tech logos with proper imports
+const frontendLogos = [
+    { name: "HTML", src: HTML5Logo },
+    { name: "CSS", src: CSS3Logo },
+    { name: "JavaScript", src: JavaScriptLogo },
+    { name: "React", src: ReactLogo },
+    { name: "Next.js", src: NextJSLogo },
+    { name: "Tailwind CSS", src: TailwindLogo },
+];
+
+const backendLogos = [
+    { name: "Node.js", src: NodeJSLogo },
+    { name: "Express", src: ExpressLogo },
+    { name: "MongoDB", src: MongoDBLogo },
+    { name: "PostgreSQL", src: PostgreSQLLogo },
+];
+
+export const About = () => {
+    const [scrollX, setScrollX] = useState(0);
+    const tickerRef = useRef(null);
+
+    // Simple auto-scroll effect
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setScrollX((prev) => {
+                const width = tickerRef.current?.scrollWidth || 0;
+                return prev >= width / 2 ? 0 : prev + 1;
+            });
+        }, 20);
+        return () => clearInterval(interval);
+    }, []);
+
+    // Example degrees array for dynamic growth
+    const degrees = [
+        {
+            title: "Bachelor of Science in Computer Science",
+            school: "Southern New Hampshire University",
+            years: "2023 - 2025",
+            gpa: "3.97",
+        },
+        {
+            title: "Associate of Arts: Mechanical Design",
+            school: "Maysville Community and Technical College",
+            years: "2020 - 2020",
+            gpa: "4.00",
+        },
+        {
+            title: "Associate of Arts: General Studies",
+            school: "Maysville Community and Technical College",
+            years: "2012 - 2015",
+            gpa: "3.50",
+        },
     ];
 
     return (
         <section
             id="about"
-            className="min-h-screen flex items-center justify-center py-20 relative text-[#00ffcc] font-mono overflow-hidden"
+            className="min-h-screen flex flex-col items-center justify-center py-20 relative text-[#00ffcc] font-mono overflow-hidden"
         >
             {/* Subtle scanline overlay */}
             <div
@@ -30,7 +88,7 @@ export const About = () => {
             ></div>
 
             <RevealOnScroll>
-                <div className="max-w-3xl mx-auto px-4 z-10">
+                <div className="max-w-5xl mx-auto px-4 z-10">
                     <h2 className="text-3xl font-bold mb-8 glow-text flicker text-center">
                         About Me
                     </h2>
@@ -41,39 +99,21 @@ export const About = () => {
                             that are both functional and aesthetically pleasing.
                         </p>
 
-                        <div className="grid grid-cols-2 gap-6">
-                            {/* Frontend */}
-                            <div className="rounded-xl p-6 hover:-translate-y-1 transition-all border border-[#00ffcc]/10">
-                                <h3 className="text-xl font-bold mb-4 glow-text flicker">
-                                    Frontend Development
-                                </h3>
-                                <div className="flex flex-wrap gap-2">
-                                    {frontendSkills.map((tech, key) => (
-                                        <span
-                                            key={key}
-                                            className="bg-[#00ffcc]/10 text-[#00ffcc] py-1 px-3 rounded-full text-sm hover:shadow-[0_0_8px_#00ffaa] transition"
-                                        >
-                                            {tech}
-                                        </span>
-                                    ))}
-                                </div>
-                            </div>
-
-                            {/* Backend */}
-                            <div className="rounded-xl p-6 hover:-translate-y-1 transition-all border border-[#00ffcc]/10">
-                                <h3 className="text-xl font-bold mb-4 glow-text flicker">
-                                    Backend Development
-                                </h3>
-                                <div className="flex flex-wrap gap-2">
-                                    {backendSkills.map((tech, key) => (
-                                        <span
-                                            key={key}
-                                            className="bg-[#00ffcc]/10 text-[#00ffcc] py-1 px-3 rounded-full text-sm hover:shadow-[0_0_8px_#00ffaa] transition"
-                                        >
-                                            {tech}
-                                        </span>
-                                    ))}
-                                </div>
+                        {/* Tech logos ticker */}
+                        <div className="overflow-hidden relative border-t border-b border-[#00ffcc]/10 py-4 mb-6">
+                            <div
+                                ref={tickerRef}
+                                className="flex gap-6 whitespace-nowrap"
+                                style={{ transform: `translateX(-${scrollX}px)` }}
+                            >
+                                {[...frontendLogos, ...backendLogos, ...frontendLogos, ...backendLogos].map(
+                                    (tech, idx) => (
+                                        <div key={idx} className="flex flex-col items-center">
+                                            <img src={tech.src} alt={tech.name} className="h-12 w-12 mb-1" />
+                                            <span className="text-sm text-[#00ffcc]/70">{tech.name}</span>
+                                        </div>
+                                    )
+                                )}
                             </div>
                         </div>
                     </div>
@@ -83,21 +123,14 @@ export const About = () => {
                         <div className="p-6 rounded-xl border border-[#00ffcc]/20 hover:-translate-y-1 transition-all glow-text flicker">
                             <h3 className="text-xl font-bold mb-4">Education</h3>
                             <ul className="list-disc list-inside text-[#00ffcc]/70 space-y-2">
-                                <li>
-                                    <strong>Bachelor of Science in Computer Science</strong>
-                                    <p>University of California, Los Angeles</p>
-                                    <p>2018 - 2022</p>
-                                </li>
-                                <li>
-                                    Relevant Coursework:
-                                    <ul className="list-disc list-inside ml-4">
-                                        <li>
-                                            Data Structures and Algorithms, Object-Oriented Programming,
-                                            Data Science, Machine Learning, AI, Computer Graphics, Computer Vision,
-                                            Natural Language Processing, Robotics, and more.
-                                        </li>
-                                    </ul>
-                                </li>
+                                {degrees.map((deg, i) => (
+                                    <li key={i}>
+                                        <strong>{deg.title}</strong>
+                                        <p>{deg.school}</p>
+                                        <p>{deg.years}</p>
+                                        <p>{deg.gpa}</p>
+                                    </li>
+                                ))}
                             </ul>
                         </div>
 
@@ -114,6 +147,15 @@ export const About = () => {
                                 </div>
                             </div>
                         </div>
+                    </div>
+
+                    {/* Placeholder for GitHub contributions */}
+                    <div className="mt-8 p-6 rounded-xl border border-[#00ffcc]/20 hover:-translate-y-1 transition-all glow-text flicker">
+                        <h3 className="text-xl font-bold mb-4">GitHub Activity</h3>
+                        <p className="text-[#00ffcc]/70 text-sm">
+                            {/* Later we can embed react-github-calendar here */}
+                            Contribution calendar will appear here.
+                        </p>
                     </div>
                 </div>
             </RevealOnScroll>

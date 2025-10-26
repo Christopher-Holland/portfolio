@@ -1,39 +1,77 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect } from "react";
 import "../index.css";
 
 export const LoadingScreen = ({ onComplete }) => {
+    const lines = [
+        "<Booting system... />",
+        "<Initializing portfolio OS... />",
+        "<Loading innovation module... />",
+        "<Ready. />",
+    ];
+
     const [text, setText] = useState("");
-    const fullText = "<Hello World! />";
+    const [lineIndex, setLineIndex] = useState(0);
 
     useEffect(() => {
         let index = 0;
-        const interval = setInterval(() => {
-            setText(fullText.substring(0, index));
-            index++;
+        let interval;
 
-            if (index > fullText.length) {
-                clearInterval(interval);
+        const typeLine = () => {
+            const fullText = lines[lineIndex];
+            interval = setInterval(() => {
+                setText(fullText.substring(0, index));
+                index++;
 
-                setTimeout(() => {
-                    onComplete();
-                }, 1000);
-            }
-        }, 100);
+                if (index > fullText.length) {
+                    clearInterval(interval);
 
+                    // Wait a bit, then move to the next line
+                    setTimeout(() => {
+                        if (lineIndex < lines.length - 1) {
+                            setLineIndex((prev) => prev + 1);
+                        } else {
+                            // All lines done -> trigger onComplete
+                            setTimeout(onComplete, 1000);
+                        }
+                    }, 800);
+                }
+            }, 70);
+        };
+
+        typeLine();
         return () => clearInterval(interval);
-    }, [onComplete]);
+    }, [lineIndex, onComplete]);
 
+    return (
+        <div className="fixed inset-0 z-50 flex flex-col items-center justify-center text-[#00ffcc] font-mono select-none overflow-hidden">
+            {/* CRT flicker overlay */}
+            <div className="absolute inset-0 opacity-70 z-0"></div>
 
-  return (
-    <div className="fixed inset-0 z-50 bg-black text-gray-100 flex flex-col items-center justify-center">
-        <div className="mb-4 text-4xl font-mono font-bold">
-            {text} <span className="animate-blink ml-1"> | </span>
+            {/* Typewriter text */}
+            <div className="relative z-10 mb-6 text-3xl sm:text-4xl md:text-5xl font-bold glow-text flicker text-center">
+                <span className="transition-opacity duration-500">{text}</span>
+                {/* Smaller, less bright cursor for readability */}
+                <span className="animate-blink ml-1 text-[#00ffcc] text-4xl">█</span>
+            </div>
+
+            {/* Loading bar */}
+            <div className="relative z-10 w-[240px] h-[3px] bg-[#002222] rounded overflow-hidden shadow-[0_0_6px_#00ffaa]">
+                <div className="w-[40%] h-full bg-[#00ffaa] animate-loading-bar shadow-[0_0_6px_#00ffaa]"></div>
+            </div>
+
+            {/* Subtle scan lines */}
+            <div
+                className="absolute inset-0 pointer-events-none z-20 mix-blend-screen opacity-10"
+                style={{
+                    background: `repeating-linear-gradient(
+              to bottom,
+              rgba(0, 255, 204, 0.2) 0px,
+              rgba(0, 255, 204, 0.2) 1px,
+              transparent 2px,
+              transparent 3px
+          )`,
+                }}
+            ></div>
         </div>
-
-        <div className="w-[200px] h-[2px] bg-gray-800 rounded relative overflow-hidden">
-            <div className="w-[40%] h-full bg-blue-500 shadow-[0_0_15_#3b82f6] animate-loading-bar"></div>
-
-        </div>
-    </div>
-  )
-}
+    );
+};

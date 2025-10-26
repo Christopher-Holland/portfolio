@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import "../../index.css";
+import GitHubCalendar from "react-github-calendar";
 import RevealOnScroll from "./RevealOnScroll";
 
 // Import SVG logos as modules
@@ -116,8 +117,7 @@ export const About = () => {
 
                     <div className="rounded-xl p-8 border border-[#00ffcc]/20 hover:-translate-y-1 transition-all glow-text">
                         <p className="text-[#00ffcc]/70 mb-6 text-lg">
-                            I'm a software engineer with a passion for building web applications
-                            that are both functional and aesthetically pleasing.
+                            I’m a software engineer transitioning from a career in CAD and engineering design. While I don’t have traditional dev experience, I’ve spent years honing problem-solving, technical, and project management skills that translate directly to coding. Recently, I’ve focused on full-stack development, building web apps with React, Node.js, and MongoDB. I enjoy creating projects that are both functional and visually engaging, and I bring the same attention to detail and creativity from engineering design to every line of code I write.
                         </p>
 
                         {/* Tech logos ticker */}
@@ -171,14 +171,17 @@ export const About = () => {
                             </ul>
                         </div>
                     </div>
-                    
-                    {/* Placeholder for GitHub contributions */}
+
+                    {/* GitHub Activity */}
                     <div className="mt-8 p-6 rounded-xl border border-[#00ffcc]/20 hover:-translate-y-1 transition-all glow-text flicker">
                         <h3 className="text-xl font-bold mb-4">GitHub Activity</h3>
-                        <p className="text-[#00ffcc]/70 text-sm">
-                            {/* Later we can embed react-github-calendar here */}
-                            Contribution calendar will appear here.
-                        </p>
+                        <GitHubCalendar
+                            username="Christopher-Holland"
+                            blockSize={20}
+                            blockMargin={5}
+                            fontSize={16}
+                            color="#00ffcc"
+                        />
                     </div>
                 </div>
             </RevealOnScroll>

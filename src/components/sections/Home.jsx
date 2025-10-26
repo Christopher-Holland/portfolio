@@ -5,7 +5,7 @@ export const Home = () => {
   return (
     <section
       id="home"
-      className="min-h-screen flex items-start justify-center relative text-[#00ffcc] font-mono overflow-hidden"
+      className="min-h-screen flex items-center justify-start relative text-[#00ffcc] font-mono overflow-hidden"
     >
       {/* Subtle scanline overlay */}
       <div

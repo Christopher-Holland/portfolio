@@ -56,9 +56,9 @@ body::before {
 /* ===== Glow Text Effect (subtle CRT) ===== */
 .glow-text {
   text-shadow:
+    0 0 1px #00ffcc,
     0 0 2px #00ffcc,
-    0 0 4px #00ffcc,
-    0 0 6px #00ffcc;
+    0 0 3px rgba(0, 255, 204, 0.6);
 }
 
 /* ===== Typewriter Cursor ===== */

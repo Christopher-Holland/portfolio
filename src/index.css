@@ -8,8 +8,6 @@ body {
   font-family: "Share Tech Mono", monospace;
   color: #00ffcc;
   background: radial-gradient(circle at top left, #001010, #000000 85%);
-  overflow: hidden;
-  height: 100vh;
 }
 
 /* ===== CRT Terminal Aesthetic ===== */

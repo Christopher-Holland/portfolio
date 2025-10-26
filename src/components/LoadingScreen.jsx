@@ -48,7 +48,7 @@ export const LoadingScreen = ({ onComplete }) => {
             <div className="absolute inset-0 opacity-70 z-0"></div>
 
             {/* Typewriter text */}
-            <div className="relative z-10 mb-6 text-3xl sm:text-4xl md:text-5xl font-bold glow-text flicker text-center">
+            <div className="relative z-10 mb-6 text-2xl sm:text-xl md:text-3xl font-bold glow-text flicker text-center">
                 <span className="transition-opacity duration-500">{text}</span>
                 {/* Smaller, less bright cursor for readability */}
                 <span className="animate-blink ml-1 text-[#00ffcc] text-4xl">█</span>

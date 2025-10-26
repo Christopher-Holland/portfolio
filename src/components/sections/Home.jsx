@@ -134,7 +134,7 @@ export const Home = () => {
         >
             {/* Left column: Intro */}
             <div className="flex-1 flex flex-col justify-center">
-                <h1 className="text-4xl md:text-5xl font-bold mb-6 glow-text flicker">
+                <h1 className="text-3xl md:text-4xl font-bold mb-6 glow-text flicker">
                     Hi, I'm Christopher Holland
                 </h1>
 

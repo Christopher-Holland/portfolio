@@ -7,9 +7,9 @@ import HTML5Logo from "../logos/HTML5.svg";
 import CSS3Logo from "../logos/CSS3.svg";
 import JavaScriptLogo from "../logos/JavaScript.svg";
 import ReactLogo from "../logos/React.svg";
-import NextJSLogo from "../logos/Next.js.svg";
+import NextJSLogo from "../logos/NextJS.svg";
 import TailwindLogo from "../logos/Tailwind-CSS.svg";
-import NodeJSLogo from "../logos/Node.js.svg";
+import NodeJSLogo from "../logos/NodeJS.svg";
 import ExpressLogo from "../logos/Express.svg";
 import MongoDBLogo from "../logos/MongoDB.svg";
 import PostgreSQLLogo from "../logos/PostgresSQL.svg";
@@ -68,6 +68,27 @@ export const About = () => {
         },
     ];
 
+    const experience = [
+        {
+            title: "Senior CAD Technician",
+            company: "ENTrust Solutions Group",
+            years: "2019 - Present",
+            duties: "At ENTrust Solutions Group, I design underground gas utility layouts to enhance both safety and project efficiency. I optimize GIS mapping workflows to support precise infrastructure planning and manage project documentation to ensure accurate, accessible records. Additionally, I create paving plans that improve timelines and cost-effectiveness, streamline interdepartmental communication through organized design file management, and increase customer satisfaction by delivering high-quality CAD designs on schedule."
+        },
+        {
+            title: "Drafter",
+            company: "AeroTek",
+            years: "2019 - 2019",
+            duties: "During my time at Aerotek, I reviewed technical drawings for accuracy and compliance with engineering standards, entered and maintained critical project data to improve document retrieval efficiency, and collaborated closely with engineering teams to update and maintain project documentation. I also identified and resolved discrepancies in drawings to support quality assurance and streamlined data recording processes to enhance overall project workflow."
+        },
+        {
+            title: "Press Operator",
+            company: "Nesco Resources",
+            years: "2019 - 2019",
+            duties: "As a Press Operator at Nesco Resources, I loaded and positioned raw materials into press machinery efficiently while managing multiple projects to maintain operational continuity. I performed regular inspections to ensure high-quality output of pressed parts, verified completed orders for accuracy, and conducted routine maintenance on press equipment to optimize performance."
+        }
+    ];
+
     return (
         <section
             id="about"
@@ -119,36 +140,38 @@ export const About = () => {
                     </div>
 
                     {/* Education & Experience */}
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8 max-w-6xl mx-auto w-full">
+                        {/* Education */}
                         <div className="p-6 rounded-xl border border-[#00ffcc]/20 hover:-translate-y-1 transition-all glow-text flicker">
                             <h3 className="text-xl font-bold mb-4">Education</h3>
-                            <ul className="list-disc list-inside text-[#00ffcc]/70 space-y-2">
+                            <ul className="text-[#00ffcc]/70 space-y-3" style={{ listStyleType: 'disc', listStylePosition: 'outside', paddingLeft: '1.5rem' }}>
                                 {degrees.map((deg, i) => (
-                                    <li key={i}>
-                                        <strong>{deg.title}</strong>
-                                        <p>{deg.school}</p>
-                                        <p>{deg.years}</p>
-                                        <p>{deg.gpa}</p>
+                                    <li key={i} className="leading-relaxed">
+                                        <strong>{deg.title}</strong><br />
+                                        {deg.school}<br />
+                                        {deg.years}<br />
+                                        GPA: {deg.gpa}
                                     </li>
                                 ))}
                             </ul>
                         </div>
 
+                        {/* Experience */}
                         <div className="p-6 rounded-xl border border-[#00ffcc]/20 hover:-translate-y-1 transition-all glow-text flicker">
                             <h3 className="text-xl font-bold mb-4">Experience</h3>
-                            <div className="space-y-4 text-[#00ffcc]/70">
-                                <div>
-                                    <h4 className="text-lg font-semibold mb-2">Software Engineer</h4>
-                                    <p>Specific duties: </p>
-                                </div>
-                                <div>
-                                    <h4 className="text-lg font-semibold mb-2">Software Engineer</h4>
-                                    <p>Specific duties: </p>
-                                </div>
-                            </div>
+                            <ul className="text-[#00ffcc]/70 space-y-3" style={{ listStyleType: 'disc', listStylePosition: 'outside', paddingLeft: '1.5rem' }}>
+                                {experience.map((exp, i) => (
+                                    <li key={i} className="leading-relaxed">
+                                        <strong>{exp.title}</strong><br />
+                                        {exp.company}<br />
+                                        {exp.years}<br />
+                                        {exp.duties}
+                                    </li>
+                                ))}
+                            </ul>
                         </div>
                     </div>
-
+                    
                     {/* Placeholder for GitHub contributions */}
                     <div className="mt-8 p-6 rounded-xl border border-[#00ffcc]/20 hover:-translate-y-1 transition-all glow-text flicker">
                         <h3 className="text-xl font-bold mb-4">GitHub Activity</h3>

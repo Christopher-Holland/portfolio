@@ -1,5 +1,6 @@
 import "../../index.css";
 import RevealOnScroll from "./RevealOnScroll";
+import Typewriter from "typewriter-effect";
 
 export const Home = () => {
   return (
@@ -22,13 +23,32 @@ export const Home = () => {
       ></div>
 
       <RevealOnScroll>
-        <div className="text-center z-10 px-4">
-          <h1 className="text-2xl sm:text-xl md:text-3xl font-bold mb-6 glow-text flicker">
+        <div className="text-left sm:text-center z-10 px-10">
+          <h1 className="text-3xl sm:text-2xl md:text-4xl font-bold mb-4 glow-text flicker">
             Hi, I'm Christopher Holland
           </h1>
-          <p className="text-[#00ffcc]/70 mb-8 text-xl max-w-lg mx-auto">
-            I'm a software engineer with a passion for building web applications
-            that are both functional and aesthetically pleasing.
+
+          <div className="text-[#00ffcc]/80 text-xl mb-6 font-mono h-8">
+            <Typewriter
+              options={{
+                strings: [
+                  "Software Engineer",
+                  "Problem Solver",
+                  "System Builder",
+                  "Creative Thinker",
+                ],
+                autoStart: true,
+                loop: true,
+                delay: 75,
+                deleteSpeed: 50,
+                pauseFor: 1500,
+              }}
+            />
+          </div>
+
+          <p className="text-[#00ffcc]/70 mb-8 text-lg max-w-lg mx-auto sm:mx-auto">
+            I build thoughtful, efficient software with a focus on clarity, precision,
+            and real-world impact. Clean code. Purposeful design. Reliable results.
           </p>
 
           <div className="flex justify-center space-x-4">

@@ -1,31 +1,53 @@
 import "../../index.css";
-
 import RevealOnScroll from "./RevealOnScroll";
 
 export const Home = () => {
-    return (
-        <section id="home" className="min-h-screen flex items-center justify-center relative">
-            <RevealOnScroll>
-            <div className="text-center z-10 px-4">
-                <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-blue-500 to-cyan-400 bg-clip-text text-transparent leading-right">
-                    Hi, I'm Christopher Holland
-                </h1>
-                <p className="text-gray-400 mb-8 text-xl max-w-lg mx-auto">
-                    I'm a software engineer with a passion for building web applications that are both functional and aesthetically pleasing.
-                </p>
-                <div className="flex justify-center space-x-4">
-                    <a href="#projects" className="bg-blue-500 text-white py-3 px-6 rounded font-medium transition relative overflow-hidden hover:-translate-y-0.5 hover:shadow-[0_0__15px_rgba(59, 130, 246, 0.4)]"
-                    >
-                        View Projects
-                    </a>
+  return (
+    <section
+      id="home"
+      className="min-h-screen flex items-center justify-center relative text-[#00ffcc] font-mono overflow-hidden"
+    >
+      {/* Subtle scanline overlay */}
+      <div
+        className="absolute inset-0 pointer-events-none z-0 mix-blend-screen opacity-5"
+        style={{
+          background: `repeating-linear-gradient(
+              to bottom,
+              rgba(0, 255, 204, 0.1) 0px,
+              rgba(0, 255, 204, 0.1) 1px,
+              transparent 2px,
+              transparent 3px
+          )`,
+        }}
+      ></div>
 
-                    <a href="#contact" className="border border-blue-500 text-blue-500 py-3 px-6 rounded font-medium transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_0__15px_rgba(59, 130, 246, 0.2)] hover:bg-blue-500/10"
-                    >
-                        Contact Me
-                    </a>
-                </div>
-            </div>
-            </RevealOnScroll>
-        </section>
-    );
+      <RevealOnScroll>
+        <div className="text-center z-10 px-4">
+          <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 glow-text flicker">
+            Hi, I'm Christopher Holland
+          </h1>
+          <p className="text-[#00ffcc]/70 mb-8 text-xl max-w-lg mx-auto">
+            I'm a software engineer with a passion for building web applications
+            that are both functional and aesthetically pleasing.
+          </p>
+
+          <div className="flex justify-center space-x-4">
+            <a
+              href="#projects"
+              className="relative py-3 px-6 rounded border border-[#00ffcc] font-medium glow-text hover:shadow-[0_0_15px_#00ffaa] hover:-translate-y-0.5 transition"
+            >
+              View Projects
+            </a>
+
+            <a
+              href="#contact"
+              className="relative py-3 px-6 rounded border border-[#00ffcc] font-medium glow-text hover:shadow-[0_0_10px_#00ffaa] hover:bg-[#00ffcc]/10 hover:-translate-y-0.5 transition"
+            >
+              Contact Me
+            </a>
+          </div>
+        </div>
+      </RevealOnScroll>
+    </section>
+  );
 };

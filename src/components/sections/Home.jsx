@@ -1,73 +1,118 @@
+import { useState, useEffect } from "react";
 import "../../index.css";
-import RevealOnScroll from "./RevealOnScroll";
-import Typewriter from "typewriter-effect";
 
 export const Home = () => {
-  return (
-    <section
-      id="home"
-      className="min-h-screen flex items-center justify-start relative text-[#00ffcc] font-mono overflow-hidden"
-    >
-      {/* Subtle scanline overlay */}
-      <div
-        className="absolute inset-0 pointer-events-none z-0 mix-blend-screen opacity-5"
-        style={{
-          background: `repeating-linear-gradient(
-              to bottom,
-              rgba(0, 255, 204, 0.1) 0px,
-              rgba(0, 255, 204, 0.1) 1px,
-              transparent 2px,
-              transparent 3px
-          )`,
-        }}
-      ></div>
+    const descriptors = ["Software Engineer", "Problem Solver", "Full-Stack Developer"];
+    const [currentDescriptor, setCurrentDescriptor] = useState("");
+    const [descriptorIndex, setDescriptorIndex] = useState(0);
+    const [charIndex, setCharIndex] = useState(0);
 
-      <RevealOnScroll>
-        <div className="text-left sm:text-center z-10 px-10">
-          <h1 className="text-3xl sm:text-2xl md:text-4xl font-bold mb-4 glow-text flicker">
-            Hi, I'm Christopher Holland
-          </h1>
+    const stats = [
+        "Commits this year: 432",
+        "Repositories: 15",
+        "Languages: JavaScript, Python, C++",
+        "Projects completed: 12",
+    ];
 
-          <div className="text-[#00ffcc]/80 text-xl mb-6 font-mono h-8">
-            <Typewriter
-              options={{
-                strings: [
-                  "Software Engineer",
-                  "Problem Solver",
-                  "System Builder",
-                  "Creative Thinker",
-                ],
-                autoStart: true,
-                loop: true,
-                delay: 75,
-                deleteSpeed: 50,
-                pauseFor: 1500,
-              }}
-            />
-          </div>
+    const asciiChars = "01<>[]{}+-*#@";
 
-          <p className="text-[#00ffcc]/70 mb-8 text-lg max-w-lg mx-auto sm:mx-auto">
-            I build thoughtful, efficient software with a focus on clarity, precision,
-            and real-world impact. Clean code. Purposeful design. Reliable results.
-          </p>
+    const [asciiLines, setAsciiLines] = useState(
+        Array(15).fill("").map(() => Array(30).fill(" "))
+    );
 
-          <div className="flex justify-center space-x-4">
-            <a
-              href="#projects"
-              className="relative py-3 px-6 rounded border border-[#00ffcc] font-medium glow-text hover:shadow-[0_0_15px_#00ffaa] hover:-translate-y-0.5 transition"
-            >
-              View Projects
-            </a>
+    // Typewriter effect for descriptors
+    useEffect(() => {
+        const fullText = descriptors[descriptorIndex];
+        if (charIndex < fullText.length) {
+            const timeout = setTimeout(() => {
+                setCurrentDescriptor(fullText.substring(0, charIndex + 1));
+                setCharIndex(charIndex + 1);
+            }, 80);
+            return () => clearTimeout(timeout);
+        } else {
+            const timeout = setTimeout(() => {
+                setCharIndex(0);
+                setDescriptorIndex((prev) => (prev + 1) % descriptors.length);
+            }, 1200);
+            return () => clearTimeout(timeout);
+        }
+    }, [charIndex, descriptorIndex]);
 
-            <a
-              href="#contact"
-              className="relative py-3 px-6 rounded border border-[#00ffcc] font-medium glow-text hover:shadow-[0_0_10px_#00ffaa] hover:bg-[#00ffcc]/10 hover:-translate-y-0.5 transition"
-            >
-              Contact Me
-            </a>
-          </div>
-        </div>
-      </RevealOnScroll>
-    </section>
-  );
+    // Animate ASCII rain
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setAsciiLines((prevLines) => {
+                const newLines = prevLines.map((line) =>
+                    line.map(() => asciiChars[Math.floor(Math.random() * asciiChars.length)])
+                );
+                return newLines;
+            });
+        }, 500);
+        return () => clearInterval(interval);
+    }, []);
+
+    return (
+        <section
+            id="home"
+            className="min-h-screen flex items-center justify-between relative px-10 text-[#00ffcc] font-mono overflow-hidden"
+        >
+            {/* Left column: Intro */}
+            <div className="flex-1 flex flex-col justify-center">
+                <h1 className="text-4xl md:text-5xl font-bold mb-6 glow-text flicker">
+                    Hi, I'm Christopher Holland
+                </h1>
+
+                <h2 className="text-2xl md:text-3xl font-mono mb-4">
+                    {currentDescriptor}
+                    <span className="animate-blink ml-1">█</span>
+                </h2>
+
+                <p className="text-[#00ffcc]/70 mb-8 max-w-lg">
+                    I build web applications that are functional, visually appealing, and maintainable.
+                    My focus is on writing clean, efficient code while delivering meaningful user experiences.
+                </p>
+
+                <div className="flex space-x-4">
+                    <a
+                        href="#projects"
+                        className="relative py-3 px-6 rounded border border-[#00ffcc] font-medium glow-text hover:shadow-[0_0_15px_#00ffaa] hover:-translate-y-0.5 transition"
+                    >
+                        View Projects
+                    </a>
+
+                    <a
+                        href="#contact"
+                        className="relative py-3 px-6 rounded border border-[#00ffcc] font-medium glow-text hover:shadow-[0_0_10px_#00ffaa] hover:bg-[#00ffcc]/10 hover:-translate-y-0.5 transition"
+                    >
+                        Contact Me
+                    </a>
+                </div>
+            </div>
+
+            {/* Right column: Terminal stats */}
+            <div className="flex-1 flex justify-center items-center relative">
+                <div className="w-[400px] md:w-[480px] h-[300px] bg-black/80 border border-[#00ffcc] rounded-lg p-6 relative overflow-hidden shadow-[0_0_10px_#00ffaa]">
+                    {/* ASCII rain overlay fills the entire box */}
+                    <div className="absolute inset-0 text-[#00ffcc]/20 font-mono text-xl leading-[12px] select-none pointer-events-none flex flex-col justify-between">
+                        {asciiLines.map((line, i) => (
+                            <div key={i} className="flex justify-between">
+                                {line.map((char, j) => (
+                                    <span key={j}>{char}</span>
+                                ))}
+                            </div>
+                        ))}
+                    </div>
+
+                    {/* Stats content */}
+                    <div className="relative z-10 text-[#00ffcc] font-mono text-lg space-y-2">
+                        {stats.map((stat, i) => (
+                            <p key={i} className="animate-fadeIn">
+                                {stat}
+                            </p>
+                        ))}
+                    </div>
+                </div>
+            </div>
+        </section>
+    );
 };

@@ -1,79 +1,207 @@
-import "../../index.css";
+import React, { useRef, useState, useEffect } from "react";
 import RevealOnScroll from "./RevealOnScroll";
+import ProjectCard from "./ProjectCard";
+
+const projects = [
+    {
+        title: "Ledgerly",
+        description:
+            "A personal finance dashboard with budgeting, analytics, and goal tracking built using the MERN stack.",
+        image: "/images/ledgerly-preview.png",
+        technologies: ["React", "Node.js", "Express", "MongoDB"],
+        demo: "https://ledgerly.vercel.app",
+        repo: "https://github.com/yourusername/ledgerly",
+    },
+    {
+        title: "Ledgerly",
+        description:
+            "A personal finance dashboard with budgeting, analytics, and goal tracking built using the MERN stack.",
+        image: "/images/ledgerly-preview.png",
+        technologies: ["React", "Node.js", "Express", "MongoDB"],
+        demo: "https://ledgerly.vercel.app",
+        repo: "https://github.com/yourusername/ledgerly",
+    },
+    {
+        title: "Ledgerly",
+        description:
+            "A personal finance dashboard with budgeting, analytics, and goal tracking built using the MERN stack.",
+        image: "/images/ledgerly-preview.png",
+        technologies: ["React", "Node.js", "Express", "MongoDB"],
+        demo: "https://ledgerly.vercel.app",
+        repo: "https://github.com/yourusername/ledgerly",
+    },
+    {
+        title: "Portfolio Website",
+        description:
+            "This interactive portfolio built with React, TailwindCSS, and Framer Motion showcases my development work and design style.",
+        image: "/images/portfolio-preview.png",
+        technologies: ["React", "TailwindCSS", "Framer Motion"],
+        demo: "#",
+        repo: "https://github.com/yourusername/portfolio",
+    },
+    {
+        title: "Next Project Placeholder",
+        description:
+            "An upcoming project that will be added soon — stay tuned for more updates.",
+        image: "/images/coming-soon.png",
+        technologies: ["TBD"],
+    },
+];
 
 export const Projects = () => {
-    const projects = [
-        {
-            title: "My Ledger",
-            description: "An expense tracking app built with React and Tailwind CSS.",
-            tech: ["React", "Node.js", "Express", "TailwindCSS", "MongoDB"],
-            link: "#", // replace with actual project link
-        },
-        {
-            title: "Portfolio Website",
-            description: "My personal portfolio website built with React and Tailwind CSS.",
-            tech: ["React", "TailwindCSS", "Vite", "JavaScript"],
-            link: "#", // replace with actual project link
-        },
-    ];
+    const containerRef = useRef(null);
+    const [currentIndex, setCurrentIndex] = useState(0);
+
+    // Scroll to a project index
+    const scrollToIndex = (index) => {
+        if (!containerRef.current) return;
+        const container = containerRef.current;
+        const child = container.children[index];
+        if (!child) return;
+        
+        const containerWidth = container.offsetWidth;
+        const childWidth = child.offsetWidth;
+        const childLeft = child.offsetLeft;
+        
+        // Calculate offset to center the child
+        const offset = childLeft - (containerWidth / 2) + (childWidth / 2);
+        
+        console.log(`Scrolling to index ${index}, offset: ${offset}, childLeft: ${childLeft}, containerWidth: ${containerWidth}, childWidth: ${childWidth}`);
+        
+        container.scrollTo({ 
+            left: offset, 
+            behavior: "smooth" 
+        });
+        
+        // Update current index immediately
+        setCurrentIndex(index);
+    };
+
+    // Handle arrow clicks
+    const handlePrev = () => {
+        if (currentIndex > 0) scrollToIndex(currentIndex - 1);
+    };
+    const handleNext = () => {
+        if (currentIndex < projects.length - 1) scrollToIndex(currentIndex + 1);
+    };
+
+    // Update current index on scroll
+    const handleScroll = () => {
+        if (!containerRef.current) return;
+        const container = containerRef.current;
+        const children = Array.from(container.children);
+        
+        if (children.length === 0) return;
+        
+        const containerCenter = container.scrollLeft + container.offsetWidth / 2;
+
+        let closestIndex = 0;
+        let minDistance = Infinity;
+
+        children.forEach((child, index) => {
+            const childCenter = child.offsetLeft + child.offsetWidth / 2;
+            const distance = Math.abs(childCenter - containerCenter);
+            
+            if (distance < minDistance) {
+                minDistance = distance;
+                closestIndex = index;
+            }
+        });
+
+        console.log(`Scroll detected - closestIndex: ${closestIndex}, currentIndex: ${currentIndex}, scrollLeft: ${container.scrollLeft}`);
+
+        // Only update if the index actually changed
+        if (closestIndex !== currentIndex) {
+            setCurrentIndex(closestIndex);
+        }
+    };
+
+    useEffect(() => {
+        const container = containerRef.current;
+        if (!container) return;
+        
+        // Add scroll event listener
+        container.addEventListener("scroll", handleScroll, { passive: true });
+        
+        // Initial scroll to first card centered after a short delay
+        const timer = setTimeout(() => {
+            scrollToIndex(0);
+        }, 200);
+        
+        return () => {
+            container.removeEventListener("scroll", handleScroll);
+            clearTimeout(timer);
+        };
+    }, []);
+
+    // Debug current index changes
+    useEffect(() => {
+        console.log(`Current index changed to: ${currentIndex}`);
+    }, [currentIndex]);
 
     return (
         <section
             id="projects"
-            className="min-h-screen flex items-center justify-center py-20 relative text-[#00ffcc] font-mono overflow-hidden"
+            className="min-h-screen flex flex-col justify-center items-center py-20 text-[#00ffcc] font-mono relative overflow-hidden"
         >
-            {/* Subtle scanline overlay */}
-            <div
-                className="absolute inset-0 pointer-events-none z-0 mix-blend-screen opacity-5"
-                style={{
-                    background: `repeating-linear-gradient(
-              to bottom,
-              rgba(0, 255, 204, 0.1) 0px,
-              rgba(0, 255, 204, 0.1) 1px,
-              transparent 2px,
-              transparent 3px
-          )`,
-                }}
-            ></div>
-
             <RevealOnScroll>
-                <div className="max-w-5xl mx-auto px-4 z-10">
-                    <h2 className="text-3xl font-bold mb-8 glow-text flicker text-center">
+                <div className="z-10 w-full">
+                    <h2 className="text-3xl font-bold mb-12 glow-text flicker text-center">
                         Featured Projects
                     </h2>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        {projects.map((project, idx) => (
-                            <div
-                                key={idx}
-                                className="p-6 rounded-xl border border-[#00ffcc]/20 hover:-translate-y-1 hover:shadow-[0_0_10px_#00ffaa] transition-all glow-text"
-                            >
-                                <h3 className="text-xl font-bold mb-2 glow-text flicker">
-                                    {project.title}
-                                </h3>
-                                <p className="text-[#00ffcc]/70 mb-6 text-lg">{project.description}</p>
+                    <div className="relative w-full max-w-6xl">
+                        {/* Arrows */}
+                        <button
+                            onClick={handlePrev}
+                            disabled={currentIndex === 0}
+                            className="absolute -left-16 top-1/2 -translate-y-1/2 bg-[#0a0a0a]/90 border border-[#00ffcc]/30 rounded-full p-3 hover:bg-[#00ffcc]/10 transition-all z-20 disabled:opacity-30 text-[#00ffcc] text-xl font-bold"
+                        >
+                            &#8592;
+                        </button>
+                        <button
+                            onClick={handleNext}
+                            disabled={currentIndex === projects.length - 1}
+                            className="absolute -right-16 top-1/2 -translate-y-1/2 bg-[#0a0a0a]/90 border border-[#00ffcc]/30 rounded-full p-3 hover:bg-[#00ffcc]/10 transition-all z-20 disabled:opacity-30 text-[#00ffcc] text-xl font-bold"
+                        >
+                            &#8594;
+                        </button>
 
-                                <div className="flex flex-wrap gap-2">
-                                    {project.tech.map((tech, key) => (
-                                        <span
-                                            key={key}
-                                            className="bg-[#00ffcc]/10 text-[#00ffcc] py-1 px-3 rounded-full text-sm hover:shadow-[0_0_8px_#00ffaa] transition"
-                                        >
-                                            {tech}
-                                        </span>
-                                    ))}
+                        {/* Scrollable cards */}
+                        <div
+                            ref={containerRef}
+                            className="flex overflow-x-auto scroll-smooth gap-6 px-6 scrollbar-hide"
+                            style={{ 
+                                scrollbarWidth: 'none', 
+                                msOverflowStyle: 'none',
+                                scrollSnapType: 'x mandatory'
+                            }}
+                        >
+                            {projects.map((project, index) => (
+                                <div
+                                    key={index}
+                                    className={`flex-shrink-0 w-[300px] sm:w-[350px] md:w-[400px] transition-transform duration-300 ${index === currentIndex ? "scale-100" : "scale-90 opacity-70"
+                                        }`}
+                                    style={{ scrollSnapAlign: 'center' }}
+                                >
+                                    <ProjectCard project={project} />
                                 </div>
+                            ))}
+                        </div>
 
-                                <div className="flex justify-start items-center mt-6">
-                                    <a
-                                        href={project.link}
-                                        className="text-[#00ffcc] hover:text-[#00ffaa] transition-colors font-medium underline"
-                                    >
-                                        View Project
-                                    </a>
-                                </div>
-                            </div>
-                        ))}
+                        {/* Dot Indicators */}
+                        <div className="flex justify-center mt-6 gap-2">
+                            {projects.map((_, index) => (
+                                <button
+                                    key={index}
+                                    onClick={() => scrollToIndex(index)}
+                                    className={`w-3 h-3 rounded-full transition-all duration-300 ${index === currentIndex
+                                            ? "bg-[#00ffcc] scale-125"
+                                            : "bg-[#00ffcc]/30 hover:bg-[#00ffcc]/60"
+                                        }`}
+                                />
+                            ))}
+                        </div>
                     </div>
                 </div>
             </RevealOnScroll>

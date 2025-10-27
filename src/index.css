@@ -111,9 +111,59 @@ body::before {
   transform: translateY(0);
 }
 
+/* Embla Carousel Styles */
+.embla {
+  max-width: 100%;
+  margin: 0 auto;
+  --slide-height: 20rem;
+  --slide-spacing: 0.5rem; /* tighter spacing */
+  --slide-size: 75%;
+  position: relative;
+  overflow: hidden;
+}
+
+.embla__viewport {
+  overflow: hidden;
+  width: 100%;
+}
+
+.embla__container {
+  display: flex;
+  align-items: center;
+  touch-action: pan-y pinch-zoom;
+  gap: var(--slide-spacing);
+  justify-content: center;
+  scroll-snap-type: x mandatory;
+  scroll-padding: 0 12.5%; /* ensures first & last slide center properly */
+}
+
+.embla__slide {
+  flex: 0 0 var(--slide-size);
+  min-width: 0;
+  scroll-snap-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: transform 0.4s ease, opacity 0.4s ease;
+  opacity: 0.8;
+}
+
+.embla__slide.is-selected {
+  transform: scale(1.05);
+  opacity: 1;
+  z-index: 2;
+}
+
+/* Optional subtle fade-in animation */
 @keyframes fadeIn {
-  0% { opacity: 0; transform: translateY(5px); }
-  100% { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .animate-fadeIn {

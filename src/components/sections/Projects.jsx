@@ -1,26 +1,12 @@
+// TODO: FIX THE PADDING WITH THE HOVER EFFECT ON THE PROJECT CARDS - CURRENTLY IT IS CUT OFF BY THE FEATURED PROJECTS TITLE 
+// TODO: FIX THE BACKGOUND, IT DOESN'T MATCH THE REST OF THE WEBSITE AND ONLY SHOWS BLACK. SAME WITH THE CONTACT SECTION.
+
 import React, { useRef, useState, useEffect } from "react";
 import RevealOnScroll from "./RevealOnScroll";
 import ProjectCard from "./ProjectCard";
+import '../../index.css';
 
 const projects = [
-    {
-        title: "Ledgerly",
-        description:
-            "A personal finance dashboard with budgeting, analytics, and goal tracking built using the MERN stack.",
-        image: "/images/ledgerly-preview.png",
-        technologies: ["React", "Node.js", "Express", "MongoDB"],
-        demo: "https://ledgerly.vercel.app",
-        repo: "https://github.com/yourusername/ledgerly",
-    },
-    {
-        title: "Ledgerly",
-        description:
-            "A personal finance dashboard with budgeting, analytics, and goal tracking built using the MERN stack.",
-        image: "/images/ledgerly-preview.png",
-        technologies: ["React", "Node.js", "Express", "MongoDB"],
-        demo: "https://ledgerly.vercel.app",
-        repo: "https://github.com/yourusername/ledgerly",
-    },
     {
         title: "Ledgerly",
         description:
@@ -170,7 +156,7 @@ export const Projects = () => {
                         {/* Scrollable cards */}
                         <div
                             ref={containerRef}
-                            className="flex overflow-x-auto scroll-smooth gap-6 px-6 scrollbar-hide"
+                            className="flex overflow-x-auto scroll-smooth gap-6 px-6 py-8 scrollbar-hide"
                             style={{ 
                                 scrollbarWidth: 'none', 
                                 msOverflowStyle: 'none',

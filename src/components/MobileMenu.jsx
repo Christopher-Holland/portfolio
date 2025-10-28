@@ -1,4 +1,5 @@
 import "../index.css";
+import { FaLinkedin, FaGithub } from "react-icons/fa";
 
 export const MobileMenu = ({ menuOpen, setMenuOpen }) => {
     const links = [
@@ -49,6 +50,15 @@ export const MobileMenu = ({ menuOpen, setMenuOpen }) => {
                     {link.label}
                 </a>
             ))}
+            {/* Social icons */}
+            <div className="flex gap-4 mt-2">
+                <a href="https://github.com/Christopher-Holland" target="_blank" rel="noopener noreferrer">
+                    <FaGithub size={32} color="#00ffcc" />
+                </a>
+                <a href="https://www.linkedin.com/in/christopher-holland-535312344" target="_blank" rel="noopener noreferrer">
+                    <FaLinkedin size={32} color="#00ffcc" />
+                </a>
+            </div>
         </div>
     );
 };

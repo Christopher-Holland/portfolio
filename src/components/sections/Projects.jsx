@@ -1,6 +1,3 @@
-// TODO: FIX THE PADDING WITH THE HOVER EFFECT ON THE PROJECT CARDS - CURRENTLY IT IS CUT OFF BY THE FEATURED PROJECTS TITLE 
-// TODO: FIX THE BACKGOUND, IT DOESN'T MATCH THE REST OF THE WEBSITE AND ONLY SHOWS BLACK. SAME WITH THE CONTACT SECTION.
-
 import React, { useRef, useState, useEffect } from "react";
 import RevealOnScroll from "./RevealOnScroll";
 import ProjectCard from "./ProjectCard";

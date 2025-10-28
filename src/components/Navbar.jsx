@@ -1,8 +1,8 @@
 import "../index.css";
 import { useEffect } from "react";
+import { FaLinkedin, FaGithub } from "react-icons/fa";
 
 export const Navbar = ({ menuOpen, setMenuOpen }) => {
-
     useEffect(() => {
         document.body.style.overflow = menuOpen ? "hidden" : "";
     }, [menuOpen]);
@@ -16,6 +16,16 @@ export const Navbar = ({ menuOpen, setMenuOpen }) => {
                     <a href="#home" className="font-mono text-xl font-bold text-[#00ffcc] hover:text-[#00ffaa] transition-colors glow-text">
                         cholland<span className="text-blue-500">.dev</span>
                     </a>
+
+                    {/* Social icons */}
+                    <div className="flex gap-4 mt-2">
+                        <a href="https://github.com/Christopher-Holland" target="_blank" rel="noopener noreferrer">
+                            <FaGithub size={24} color="#00ffcc" />
+                        </a>
+                        <a href="https://www.linkedin.com/in/christopher-holland-535312344" target="_blank" rel="noopener noreferrer">
+                            <FaLinkedin size={24} color="#00ffcc" />
+                        </a>
+                    </div>
 
                     {/* Hamburger menu */}
                     <div

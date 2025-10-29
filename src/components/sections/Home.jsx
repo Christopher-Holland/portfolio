@@ -137,35 +137,35 @@ export const Home = () => {
     return (
         <section
             id="home"
-            className="min-h-screen flex items-center justify-between relative px-10 text-[#00ffcc] font-mono overflow-hidden"
+            className="min-h-screen flex flex-col lg:flex-row items-center justify-between relative px-4 sm:px-6 lg:px-10 py-20 lg:py-0 text-[#00ffcc] font-mono overflow-hidden"
         >
             {/* Left column: Intro */}
-            <div className="flex-1 flex flex-col justify-center">
-                <h1 className="text-3xl md:text-4xl font-bold mb-6 glow-text flicker">
+            <div className="flex-1 flex flex-col justify-center w-full lg:w-auto mb-8 lg:mb-0">
+                <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-6 glow-text flicker">
                     Hi, I'm Christopher Holland
                 </h1>
 
-                <h2 className="text-2xl md:text-3xl font-mono mb-4">
+                <h2 className="text-xl sm:text-2xl md:text-3xl font-mono mb-4">
                     {currentDescriptor}
                     <span className="animate-blink ml-1">█</span>
                 </h2>
 
-                <p className="text-[#00ffcc]/70 mb-8 max-w-lg">
+                <p className="text-[#00ffcc]/70 mb-8 max-w-lg text-sm sm:text-base">
                     I build web applications that are functional, visually appealing, and maintainable.
                     My focus is on writing clean, efficient code while delivering meaningful user experiences.
                 </p>
 
-                <div className="flex space-x-4">
+                <div className="flex flex-col sm:flex-row gap-4">
                     <a
                         href="#projects"
-                        className="relative py-3 px-6 rounded border border-[#00ffcc] font-medium glow-text hover:shadow-[0_0_15px_#00ffaa] hover:-translate-y-0.5 transition"
+                        className="relative py-3 px-6 rounded border border-[#00ffcc] font-medium glow-text hover:shadow-[0_0_15px_#00ffaa] hover:-translate-y-0.5 transition text-center text-sm sm:text-base"
                     >
                         View Projects
                     </a>
 
                     <a
                         href="#contact"
-                        className="relative py-3 px-6 rounded border border-[#00ffcc] font-medium glow-text hover:shadow-[0_0_10px_#00ffaa] hover:bg-[#00ffcc]/10 hover:-translate-y-0.5 transition"
+                        className="relative py-3 px-6 rounded border border-[#00ffcc] font-medium glow-text hover:shadow-[0_0_10px_#00ffaa] hover:bg-[#00ffcc]/10 hover:-translate-y-0.5 transition text-center text-sm sm:text-base"
                     >
                         Contact Me
                     </a>
@@ -173,10 +173,10 @@ export const Home = () => {
             </div>
 
             {/* Right column: Terminal stats */}
-            <div className="flex-1 flex justify-center items-center relative">
-                <div className="w-[400px] md:w-[480px] h-[300px] bg-black/80 border border-[#00ffcc] rounded-lg p-6 relative overflow-hidden shadow-[0_0_10px_#00ffaa]">
+            <div className="flex-1 flex justify-center items-center relative w-full lg:w-auto">
+                <div className="w-full max-w-[400px] lg:max-w-[480px] h-[300px] bg-black/80 border border-[#00ffcc] rounded-lg p-4 sm:p-6 relative overflow-hidden shadow-[0_0_10px_#00ffaa]">
                     {/* ASCII rain overlay */}
-                    <div className="absolute inset-0 text-[#00ffcc]/20 font-mono text-xl leading-[12px] select-none pointer-events-none flex flex-col justify-between">
+                    <div className="absolute inset-0 text-[#00ffcc]/20 font-mono text-lg sm:text-xl leading-[12px] select-none pointer-events-none flex flex-col justify-between">
                         {asciiLines.map((line, i) => (
                             <div key={i} className="flex justify-between">
                                 {line.map((char, j) => (
@@ -187,7 +187,7 @@ export const Home = () => {
                     </div>
 
                     {/* Stats content with typewriter */}
-                    <div className="relative z-10 text-[#00ffcc] font-mono text-lg space-y-2">
+                    <div className="relative z-10 text-[#00ffcc] font-mono text-base sm:text-lg space-y-2">
                         {displayStats.map((stat, i) => {
                             // Only show lines that are currently being typed or have been completed
                             if (i <= statLineIndex) {

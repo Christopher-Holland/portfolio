@@ -125,27 +125,27 @@ export const Projects = () => {
     return (
         <section
             id="projects"
-            className="min-h-screen flex flex-col justify-center items-center py-20 text-[#00ffcc] font-mono relative overflow-hidden"
+            className="min-h-screen flex flex-col justify-center items-center py-16 sm:py-20 px-4 text-[#00ffcc] font-mono relative overflow-hidden"
         >
             <RevealOnScroll>
                 <div className="z-10 w-full">
-                    <h2 className="text-3xl font-bold mb-12 glow-text flicker text-center">
+                    <h2 className="text-2xl sm:text-3xl font-bold mb-8 sm:mb-12 glow-text flicker text-center">
                         Featured Projects
                     </h2>
 
-                    <div className="relative w-full max-w-6xl">
+                    <div className="relative w-full max-w-6xl px-8 sm:px-12 md:px-0">
                         {/* Arrows */}
                         <button
                             onClick={handlePrev}
                             disabled={currentIndex === 0}
-                            className="absolute -left-16 top-1/2 -translate-y-1/2 bg-[#0a0a0a]/90 border border-[#00ffcc]/30 rounded-full p-3 hover:bg-[#00ffcc]/10 transition-all z-20 disabled:opacity-30 text-[#00ffcc] text-xl font-bold"
+                            className="absolute left-0 md:-left-16 top-1/2 -translate-y-1/2 bg-[#0a0a0a]/90 border border-[#00ffcc]/30 rounded-full p-2 md:p-3 hover:bg-[#00ffcc]/10 transition-all z-20 disabled:opacity-30 text-[#00ffcc] text-lg md:text-xl font-bold"
                         >
                             &#8592;
                         </button>
                         <button
                             onClick={handleNext}
                             disabled={currentIndex === projects.length - 1}
-                            className="absolute -right-16 top-1/2 -translate-y-1/2 bg-[#0a0a0a]/90 border border-[#00ffcc]/30 rounded-full p-3 hover:bg-[#00ffcc]/10 transition-all z-20 disabled:opacity-30 text-[#00ffcc] text-xl font-bold"
+                            className="absolute right-0 md:-right-16 top-1/2 -translate-y-1/2 bg-[#0a0a0a]/90 border border-[#00ffcc]/30 rounded-full p-2 md:p-3 hover:bg-[#00ffcc]/10 transition-all z-20 disabled:opacity-30 text-[#00ffcc] text-lg md:text-xl font-bold"
                         >
                             &#8594;
                         </button>

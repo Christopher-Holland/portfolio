@@ -93,7 +93,7 @@ export const About = () => {
     return (
         <section
             id="about"
-            className="min-h-screen flex flex-col items-center justify-center py-20 relative text-[#00ffcc] font-mono overflow-hidden"
+            className="min-h-screen flex flex-col items-center justify-center py-16 sm:py-20 relative text-[#00ffcc] font-mono overflow-hidden"
         >
             {/* Subtle scanline overlay */}
             <div
@@ -110,28 +110,28 @@ export const About = () => {
             ></div>
 
             <RevealOnScroll>
-                <div className="max-w-5xl mx-auto px-4 z-10">
-                    <h2 className="text-3xl font-bold mb-8 glow-text flicker text-center">
+                <div className="max-w-5xl mx-auto px-4 sm:px-6 z-10">
+                    <h2 className="text-2xl sm:text-3xl font-bold mb-8 glow-text flicker text-center">
                         About Me
                     </h2>
 
-                    <div className="rounded-xl p-8 border border-[#00ffcc]/20 hover:-translate-y-1 transition-all glow-text">
-                        <p className="text-[#00ffcc]/70 mb-6 text-lg">
-                            I’m a software engineer transitioning from a career in CAD and engineering design. While I don’t have traditional dev experience, I’ve spent years honing problem-solving, technical, and project management skills that translate directly to coding. Recently, I’ve focused on full-stack development, building web apps with React, Node.js, and MongoDB. I enjoy creating projects that are both functional and visually engaging, and I bring the same attention to detail and creativity from engineering design to every line of code I write.
+                    <div className="rounded-xl p-4 sm:p-6 md:p-8 border border-[#00ffcc]/20 hover:-translate-y-1 transition-all glow-text">
+                        <p className="text-[#00ffcc]/70 mb-6 text-sm sm:text-base md:text-lg">
+                            I'm a software engineer transitioning from a career in CAD and engineering design. While I don't have traditional dev experience, I've spent years honing problem-solving, technical, and project management skills that translate directly to coding. Recently, I've focused on full-stack development, building web apps with React, Node.js, and MongoDB. I enjoy creating projects that are both functional and visually engaging, and I bring the same attention to detail and creativity from engineering design to every line of code I write.
                         </p>
 
                         {/* Tech logos ticker */}
                         <div className="overflow-hidden relative border-t border-b border-[#00ffcc]/10 py-4 mb-6">
                             <div
                                 ref={tickerRef}
-                                className="flex gap-6 whitespace-nowrap"
+                                className="flex gap-4 sm:gap-6 whitespace-nowrap"
                                 style={{ transform: `translateX(-${scrollX}px)` }}
                             >
                                 {[...frontendLogos, ...backendLogos, ...frontendLogos, ...backendLogos].map(
                                     (tech, idx) => (
                                         <div key={idx} className="flex flex-col items-center">
-                                            <img src={tech.src} alt={tech.name} className="h-12 w-12 mb-1" />
-                                            <span className="text-sm text-[#00ffcc]/70">{tech.name}</span>
+                                            <img src={tech.src} alt={tech.name} className="h-8 w-8 sm:h-10 sm:w-10 md:h-12 md:w-12 mb-1" />
+                                            <span className="text-xs sm:text-sm text-[#00ffcc]/70">{tech.name}</span>
                                         </div>
                                     )
                                 )}
@@ -140,11 +140,11 @@ export const About = () => {
                     </div>
 
                     {/* Education & Experience */}
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8 max-w-6xl mx-auto w-full">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 mt-8 max-w-6xl mx-auto w-full">
                         {/* Education */}
-                        <div className="p-6 rounded-xl border border-[#00ffcc]/20 hover:-translate-y-1 transition-all glow-text flicker">
-                            <h3 className="text-xl font-bold mb-4">Education</h3>
-                            <ul className="text-[#00ffcc]/70 space-y-3" style={{ listStyleType: 'disc', listStylePosition: 'outside', paddingLeft: '1.5rem' }}>
+                        <div className="p-4 sm:p-6 rounded-xl border border-[#00ffcc]/20 hover:-translate-y-1 transition-all glow-text flicker">
+                            <h3 className="text-lg sm:text-xl font-bold mb-4">Education</h3>
+                            <ul className="text-[#00ffcc]/70 space-y-3 text-sm sm:text-base" style={{ listStyleType: 'disc', listStylePosition: 'outside', paddingLeft: '1.5rem' }}>
                                 {degrees.map((deg, i) => (
                                     <li key={i} className="leading-relaxed">
                                         <strong>{deg.title}</strong><br />
@@ -157,9 +157,9 @@ export const About = () => {
                         </div>
 
                         {/* Experience */}
-                        <div className="p-6 rounded-xl border border-[#00ffcc]/20 hover:-translate-y-1 transition-all glow-text flicker">
-                            <h3 className="text-xl font-bold mb-4">Experience</h3>
-                            <ul className="text-[#00ffcc]/70 space-y-3" style={{ listStyleType: 'disc', listStylePosition: 'outside', paddingLeft: '1.5rem' }}>
+                        <div className="p-4 sm:p-6 rounded-xl border border-[#00ffcc]/20 hover:-translate-y-1 transition-all glow-text flicker">
+                            <h3 className="text-lg sm:text-xl font-bold mb-4">Experience</h3>
+                            <ul className="text-[#00ffcc]/70 space-y-3 text-sm sm:text-base" style={{ listStyleType: 'disc', listStylePosition: 'outside', paddingLeft: '1.5rem' }}>
                                 {experience.map((exp, i) => (
                                     <li key={i} className="leading-relaxed">
                                         <strong>{exp.title}</strong><br />
@@ -173,15 +173,17 @@ export const About = () => {
                     </div>
 
                     {/* GitHub Activity */}
-                    <div className="mt-8 p-6 rounded-xl border border-[#00ffcc]/20 hover:-translate-y-1 transition-all glow-text flicker">
-                        <h3 className="text-xl font-bold mb-4">GitHub Activity</h3>
-                        <GitHubCalendar
-                            username="Christopher-Holland"
-                            blockSize={20}
-                            blockMargin={5}
-                            fontSize={16}
-                            color="#00ffcc"
-                        />
+                    <div className="mt-8 p-4 sm:p-6 rounded-xl border border-[#00ffcc]/20 hover:-translate-y-1 transition-all glow-text flicker overflow-x-auto">
+                        <h3 className="text-lg sm:text-xl font-bold mb-4">GitHub Activity</h3>
+                        <div className="min-w-[280px]">
+                            <GitHubCalendar
+                                username="Christopher-Holland"
+                                blockSize={20}
+                                blockMargin={5}
+                                fontSize={16}
+                                color="#00ffcc"
+                            />
+                        </div>
                     </div>
                 </div>
             </RevealOnScroll>

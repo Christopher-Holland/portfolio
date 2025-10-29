@@ -30,7 +30,7 @@ export const Contact = () => {
     return (
         <section
             id="contact"
-            className="min-h-screen flex items-center justify-center py-20 relative text-[#00ffcc] font-mono overflow-hidden"
+            className="min-h-screen flex items-center justify-center py-16 sm:py-20 relative text-[#00ffcc] font-mono overflow-hidden"
         >
             {/* Subtle scanline overlay */}
             <div
@@ -47,8 +47,8 @@ export const Contact = () => {
             ></div>
 
             <RevealOnScroll>
-                <div className="px-4 w-full min-w-[300px] md:w-[500px] sm:w-2/3 p-6 z-10">
-                    <h2 className="text-3xl font-bold mb-8 glow-text flicker text-center">
+                <div className="px-4 w-full max-w-[500px] mx-auto p-4 sm:p-6 z-10">
+                    <h2 className="text-2xl sm:text-3xl font-bold mb-8 glow-text flicker text-center">
                         Get In Touch
                     </h2>
 
@@ -61,7 +61,7 @@ export const Contact = () => {
                                     name={field}
                                     required
                                     value={formData[field]}
-                                    className="w-full bg-black/50 border border-[#00ffcc]/30 rounded px-4 py-3 text-[#00ffcc] placeholder-[#00ffcc]/50 transition focus:outline-none focus:border-[#00ffaa] focus:shadow-[0_0_5px_#00ffaa] focus:bg-black/70"
+                                    className="w-full bg-black/50 border border-[#00ffcc]/30 rounded px-4 py-3 text-sm sm:text-base text-[#00ffcc] placeholder-[#00ffcc]/50 transition focus:outline-none focus:border-[#00ffaa] focus:shadow-[0_0_5px_#00ffaa] focus:bg-black/70"
                                     placeholder={field === "email" ? "example@gmail.com" : "Name..."}
                                     onChange={(e) => setFormData({ ...formData, [field]: e.target.value })}
                                 />
@@ -75,7 +75,7 @@ export const Contact = () => {
                                 required
                                 rows={5}
                                 value={formData.message}
-                                className="w-full bg-black/50 border border-[#00ffcc]/30 rounded px-4 py-3 text-[#00ffcc] placeholder-[#00ffcc]/50 transition focus:outline-none focus:border-[#00ffaa] focus:shadow-[0_0_5px_#00ffaa] focus:bg-black/70"
+                                className="w-full bg-black/50 border border-[#00ffcc]/30 rounded px-4 py-3 text-sm sm:text-base text-[#00ffcc] placeholder-[#00ffcc]/50 transition focus:outline-none focus:border-[#00ffaa] focus:shadow-[0_0_5px_#00ffaa] focus:bg-black/70"
                                 placeholder="Your Message..."
                                 onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                             />
@@ -83,7 +83,7 @@ export const Contact = () => {
 
                         <button
                             type="submit"
-                            className="w-full bg-[#00ffcc]/10 text-[#00ffcc] py-3 px-6 rounded font-medium transition relative overflow-hidden hover:-translate-y-0.5 hover:shadow-[0_0_10px_#00ffaa]"
+                            className="w-full bg-[#00ffcc]/10 text-[#00ffcc] py-3 px-6 rounded font-medium transition relative overflow-hidden hover:-translate-y-0.5 hover:shadow-[0_0_10px_#00ffaa] text-sm sm:text-base"
                         >
                             Send Message
                         </button>

@@ -114,18 +114,14 @@ body::before {
 }
 
 
-/* Optional subtle fade-in animation */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(5px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+/* Base reveal for all animations */
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
 }
 
-.animate-fadeIn {
-  animation: fadeIn 0.8s ease forwards;
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
 }

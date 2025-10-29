@@ -1,3 +1,5 @@
+// TODO: FIX GITHUB STATS
+
 import { useState, useEffect } from "react";
 import "../../index.css";
 
@@ -50,43 +52,92 @@ export const Home = () => {
     }, []);
 
     // Fetch GitHub stats
-    useEffect(() => {
-        const fetchGitHubStats = async () => {
-            try {
+    const fetchGitHubStats = async () => {
+        try {
+            const token = import.meta.env.VITE_GITHUB_TOKEN;
+            const username = "Christopher-Holland";
+
+            // If no token, use REST API as fallback
+            if (!token) {
+                console.warn("No GitHub token found, using REST API with rate limits");
+                
                 // Fetch user data
-                const userResponse = await fetch('https://api.github.com/users/Christopher-Holland');
+                const userResponse = await fetch(`https://api.github.com/users/${username}`);
                 const userData = await userResponse.json();
                 
                 // Fetch repositories
-                const reposResponse = await fetch('https://api.github.com/users/Christopher-Holland/repos');
+                const reposResponse = await fetch(`https://api.github.com/users/${username}/repos?per_page=100`);
                 const reposData = await reposResponse.json();
                 
-                // Calculate stats
-                const totalRepos = reposData.length;
-                const publicRepos = reposData.filter(repo => !repo.fork).length;
-                const languages = [...new Set(reposData.flatMap(repo => Object.keys(repo.language ? { [repo.language]: 1 } : {})))];
-                const topLanguages = languages.slice(0, 3).join(', ');
+                if (reposData.message && reposData.message.includes("rate limit")) {
+                    throw new Error("Rate limit exceeded");
+                }
                 
-                // Fetch contribution data (approximate)
-                const contributions = Math.floor(Math.random() * 200) + 100; // GitHub API doesn't provide easy access to contribution count
+                const totalRepos = reposData.filter(repo => !repo.fork).length;
+                const languages = [...new Set(reposData.map(repo => repo.language).filter(Boolean))];
+                const topLanguages = languages.slice(0, 3).join(', ') || 'JavaScript, Python, HTML';
                 
                 setStatsList([
-                    `Commits this year: ${contributions}`,
-                    `Public repositories: ${publicRepos}`,
+                    `Active developer since 2023`,
+                    `Public repositories: ${totalRepos}`,
                     `Languages: ${topLanguages}`,
-                    `Total projects: ${totalRepos}`,
+                    `Total projects: ${reposData.length}`,
                 ]);
-            } catch (error) {
-                console.error('Error fetching GitHub stats:', error);
-                setStatsList([
-                    "GitHub API unavailable",
-                    "Using cached data...",
-                    "Please check connection",
-                    "Retrying in background...",
-                ]);
+                return;
             }
-        };
 
+            // Use GraphQL API with token
+            const query = `
+            query {
+              user(login: "${username}") {
+                contributionsCollection {
+                  contributionCalendar {
+                    totalContributions
+                  }
+                }
+                repositories(privacy: PUBLIC, first: 100) {
+                  totalCount
+                }
+              }
+            }
+          `;
+
+            const response = await fetch("https://api.github.com/graphql", {
+                method: "POST",
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ query }),
+            });
+
+            const result = await response.json();
+            
+            if (result.errors) {
+                console.error("GraphQL errors:", result.errors);
+                throw new Error(result.errors[0].message);
+            }
+
+            const totalCommits = result.data.user.contributionsCollection.contributionCalendar.totalContributions;
+            const totalRepos = result.data.user.repositories.totalCount;
+
+            setStatsList([
+                `Commits this year: ${totalCommits}`,
+                `Public repositories: ${totalRepos}`,
+                `Languages: JavaScript, Python, HTML`,
+                `Total projects: ${totalRepos}`,
+            ]);
+        } catch (error) {
+            console.error("Error fetching GitHub stats:", error);
+            setStatsList([
+                "Active developer since 2023",
+                "Building full-stack apps",
+                "JavaScript • React • Node.js",
+                "Check GitHub for latest work",
+            ]);
+        }
+    };
+    useEffect(() => {
         fetchGitHubStats();
     }, []);
 

@@ -19,6 +19,13 @@ export const Navbar = ({ menuOpen, setMenuOpen }) => {
 
                     {/* Right side container */}
                     <div className="flex items-center gap-6">
+                        {/* Desktop links */}
+                        <div className="hidden md:flex items-center space-x-8">
+                            <a href="#home" className="text-[#00ffcc] hover:text-[#00ffaa] transition-colors glow-text">Home</a>
+                            <a href="#about" className="text-[#00ffcc] hover:text-[#00ffaa] transition-colors glow-text">About</a>
+                            <a href="#projects" className="text-[#00ffcc] hover:text-[#00ffaa] transition-colors glow-text">Projects</a>
+                            <a href="#contact" className="text-[#00ffcc] hover:text-[#00ffaa] transition-colors glow-text">Contact</a>
+                        </div>
                         {/* Social icons - hidden on mobile, shown on desktop */}
                         <div className="hidden md:flex gap-4">
                             <a href="https://github.com/Christopher-Holland" target="_blank" rel="noopener noreferrer">
@@ -27,14 +34,6 @@ export const Navbar = ({ menuOpen, setMenuOpen }) => {
                             <a href="https://www.linkedin.com/in/christopher-holland-535312344" target="_blank" rel="noopener noreferrer">
                                 <FaLinkedin size={24} color="#00ffcc" />
                             </a>
-                        </div>
-
-                        {/* Desktop links */}
-                        <div className="hidden md:flex items-center space-x-8">
-                            <a href="#home" className="text-[#00ffcc] hover:text-[#00ffaa] transition-colors glow-text">Home</a>
-                            <a href="#about" className="text-[#00ffcc] hover:text-[#00ffaa] transition-colors glow-text">About</a>
-                            <a href="#projects" className="text-[#00ffcc] hover:text-[#00ffaa] transition-colors glow-text">Projects</a>
-                            <a href="#contact" className="text-[#00ffcc] hover:text-[#00ffaa] transition-colors glow-text">Contact</a>
                         </div>
 
                         {/* Hamburger menu */}

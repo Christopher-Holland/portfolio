@@ -195,6 +195,18 @@ export const Projects = () => {
                 <ProjectModal
                     project={selectedProject}
                     onClose={() => setSelectedProject(null)}
+                    projects={projects}
+                    currentIndex={projects.findIndex(p => p.title === selectedProject.title)}
+                    onPrevious={() => {
+                        const currentIdx = projects.findIndex(p => p.title === selectedProject.title);
+                        const prevIdx = currentIdx > 0 ? currentIdx - 1 : projects.length - 1;
+                        setSelectedProject(projects[prevIdx]);
+                    }}
+                    onNext={() => {
+                        const currentIdx = projects.findIndex(p => p.title === selectedProject.title);
+                        const nextIdx = currentIdx < projects.length - 1 ? currentIdx + 1 : 0;
+                        setSelectedProject(projects[nextIdx]);
+                    }}
                 />
             )}
         </section>

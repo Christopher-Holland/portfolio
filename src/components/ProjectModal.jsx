@@ -1,8 +1,8 @@
 import React from "react";
-import { X } from "lucide-react"; // close icon
+import { X, ChevronLeft, ChevronRight } from "lucide-react"; // close icon and navigation icons
 import "../index.css";
 
-const ProjectModal = ({ project, onClose }) => {
+const ProjectModal = ({ project, onClose, projects, currentIndex, onPrevious, onNext }) => {
     if (!project) return null;
 
     return (
@@ -11,13 +11,35 @@ const ProjectModal = ({ project, onClose }) => {
         >
             {/* Modal content */}
             <div className="relative w-full max-w-3xl bg-[#0a0a0a] border border-[#00ffcc]/50 rounded-xl shadow-[0_0_20px_#00ffaa] overflow-y-auto max-h-[90vh]">
-                {/* Close button */}
-                <button
-                    onClick={onClose}
-                    className="absolute top-4 right-4 text-[#00ffcc] hover:text-[#00ffaa] transition"
-                >
-                    <X size={24} />
-                </button>
+                {/* Navigation and Close buttons */}
+                <div className="absolute top-4 right-4 flex gap-2">
+                    {/* Previous button */}
+                    <button
+                        onClick={onPrevious}
+                        className="text-[#00ffcc] hover:text-[#00ffaa] transition p-1"
+                        title="Previous Project"
+                    >
+                        <ChevronLeft size={24} />
+                    </button>
+                    
+                    {/* Next button */}
+                    <button
+                        onClick={onNext}
+                        className="text-[#00ffcc] hover:text-[#00ffaa] transition p-1"
+                        title="Next Project"
+                    >
+                        <ChevronRight size={24} />
+                    </button>
+                    
+                    {/* Close button */}
+                    <button
+                        onClick={onClose}
+                        className="text-[#00ffcc] hover:text-[#00ffaa] transition p-1"
+                        title="Close Modal"
+                    >
+                        <X size={24} />
+                    </button>
+                </div>
 
                 {/* Project image */}
                 {project.image && (
@@ -30,7 +52,12 @@ const ProjectModal = ({ project, onClose }) => {
 
                 {/* Project details */}
                 <div className="p-6 text-[#00ffcc] font-mono">
-                    <h3 className="text-2xl font-bold mb-4 glow-text flicker">{project.title}</h3>
+                    <div className="flex justify-between items-center mb-4">
+                        <h3 className="text-2xl font-bold glow-text flicker">{project.title}</h3>
+                        <span className="text-sm text-[#00ffcc]/60">
+                            {currentIndex + 1} of {projects.length}
+                        </span>
+                    </div>
                     <p className="mb-4">{project.description}</p>
 
                     {project.technologies && project.technologies.length > 0 && (

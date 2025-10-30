@@ -1,5 +1,3 @@
-// TODO: FIX GITHUB STATS
-
 import { useState, useEffect } from "react";
 import "../../index.css";
 
@@ -9,16 +7,19 @@ export const Home = () => {
     const [descriptorIndex, setDescriptorIndex] = useState(0);
     const [charIndex, setCharIndex] = useState(0);
 
-    const [statsList, setStatsList] = useState([
-        "Loading GitHub stats...",
-        "Please wait...",
-        "Fetching data...",
-        "Almost ready...",
+    // ✅ Hardcoded GitHub stats — update these manually as needed
+    const [statsList] = useState([
+        "Commits this year: 194",
+        "Public repositories: 4",
+        "Languages: JavaScript, Javv, HTML",
+        "Total projects: 17",
     ]);
 
     const asciiChars = "01<>[]{}+-*#@";
     const [asciiLines, setAsciiLines] = useState(
-        Array(15).fill("").map(() => Array(30).fill(" "))
+        Array(15)
+            .fill("")
+            .map(() => Array(30).fill(" "))
     );
 
     // Typewriter effect for descriptors
@@ -42,103 +43,13 @@ export const Home = () => {
     // Animate ASCII rain
     useEffect(() => {
         const interval = setInterval(() => {
-            setAsciiLines((prevLines) => {
-                return prevLines.map((line) =>
+            setAsciiLines((prevLines) =>
+                prevLines.map((line) =>
                     line.map(() => asciiChars[Math.floor(Math.random() * asciiChars.length)])
-                );
-            });
+                )
+            );
         }, 500);
         return () => clearInterval(interval);
-    }, []);
-
-    // Fetch GitHub stats
-    const fetchGitHubStats = async () => {
-        try {
-            const token = import.meta.env.VITE_GITHUB_TOKEN;
-            const username = "Christopher-Holland";
-
-            // If no token, use REST API as fallback
-            if (!token) {
-                console.warn("No GitHub token found, using REST API with rate limits");
-                
-                // Fetch user data
-                const userResponse = await fetch(`https://api.github.com/users/${username}`);
-                const userData = await userResponse.json();
-                
-                // Fetch repositories
-                const reposResponse = await fetch(`https://api.github.com/users/${username}/repos?per_page=100`);
-                const reposData = await reposResponse.json();
-                
-                if (reposData.message && reposData.message.includes("rate limit")) {
-                    throw new Error("Rate limit exceeded");
-                }
-                
-                const totalRepos = reposData.filter(repo => !repo.fork).length;
-                const languages = [...new Set(reposData.map(repo => repo.language).filter(Boolean))];
-                const topLanguages = languages.slice(0, 3).join(', ') || 'JavaScript, Python, HTML';
-                
-                setStatsList([
-                    `Active developer since 2023`,
-                    `Public repositories: ${totalRepos}`,
-                    `Languages: ${topLanguages}`,
-                    `Total projects: ${reposData.length}`,
-                ]);
-                return;
-            }
-
-            // Use GraphQL API with token
-            const query = `
-            query {
-              user(login: "${username}") {
-                contributionsCollection {
-                  contributionCalendar {
-                    totalContributions
-                  }
-                }
-                repositories(privacy: PUBLIC, first: 100) {
-                  totalCount
-                }
-              }
-            }
-          `;
-
-            const response = await fetch("https://api.github.com/graphql", {
-                method: "POST",
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({ query }),
-            });
-
-            const result = await response.json();
-            
-            if (result.errors) {
-                console.error("GraphQL errors:", result.errors);
-                throw new Error(result.errors[0].message);
-            }
-
-            const totalCommits = result.data.user.contributionsCollection.contributionCalendar.totalContributions;
-            const totalRepos = result.data.user.repositories.totalCount;
-
-            setStatsList([
-                `Commits this year: ${totalCommits}`,
-                `Public repositories: ${totalRepos}`,
-                `Languages: JavaScript, Python, HTML`,
-                `Total projects: ${totalRepos}`,
-            ]);
-        } catch (error) {
-            console.error("Error fetching GitHub stats:", error);
-            setStatsList([
-                "Active developer since 2023",
-                "Building full-stack apps",
-                "JavaScript • React • Node.js",
-                "Check GitHub for latest work",
-            ]);
-        }
-    };
-    useEffect(() => {
-        fetchGitHubStats();
     }, []);
 
     // Typewriter effect for stats
@@ -148,8 +59,6 @@ export const Home = () => {
     const [showCursor, setShowCursor] = useState(true);
 
     useEffect(() => {
-        if (statsList.length === 0) return;
-
         const line = statsList[statLineIndex];
         if (statCharIndex < line.length) {
             const timeout = setTimeout(() => {
@@ -164,8 +73,7 @@ export const Home = () => {
         } else {
             const timeout = setTimeout(() => {
                 setStatCharIndex(0);
-                setStatLineIndex((statLineIndex + 1) % statsList.length); // Loop back to beginning
-                // Clear the next line to prevent flashing
+                setStatLineIndex((statLineIndex + 1) % statsList.length);
                 setDisplayStats((prev) => {
                     const newStats = [...prev];
                     const nextIndex = (statLineIndex + 1) % statsList.length;
@@ -179,9 +87,7 @@ export const Home = () => {
 
     // Cursor blinking effect
     useEffect(() => {
-        const interval = setInterval(() => {
-            setShowCursor(prev => !prev);
-        }, 500);
+        const interval = setInterval(() => setShowCursor((prev) => !prev), 500);
         return () => clearInterval(interval);
     }, []);
 
@@ -239,20 +145,14 @@ export const Home = () => {
 
                     {/* Stats content with typewriter */}
                     <div className="relative z-10 text-[#00ffcc] font-mono text-base sm:text-lg space-y-2">
-                        {displayStats.map((stat, i) => {
-                            // Only show lines that are currently being typed or have been completed
-                            if (i <= statLineIndex) {
-                                return (
-                                    <p key={i}>
-                                        {stat}
-                                        {i === statLineIndex && showCursor && (
-                                            <span className="animate-blink">█</span>
-                                        )}
-                                    </p>
-                                );
-                            }
-                            return null;
-                        })}
+                        {displayStats.map((stat, i) =>
+                            i <= statLineIndex ? (
+                                <p key={i}>
+                                    {stat}
+                                    {i === statLineIndex && showCursor && <span className="animate-blink">█</span>}
+                                </p>
+                            ) : null
+                        )}
                     </div>
                 </div>
             </div>

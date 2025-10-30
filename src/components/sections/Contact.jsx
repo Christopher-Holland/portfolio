@@ -47,7 +47,7 @@ export const Contact = () => {
             ></div>
 
             <RevealOnScroll>
-                <div className="px-4 w-full max-w-[500px] mx-auto p-4 sm:p-6 z-10">
+                <div className="px-4 w-full max-w-[800px] mx-auto p-4 sm:p-6 z-10">
                     <h2 className="text-2xl sm:text-3xl font-bold mb-8 glow-text flicker text-center">
                         Get In Touch
                     </h2>

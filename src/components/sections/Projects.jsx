@@ -9,7 +9,7 @@ const projects = [
         title: "My Ledger",
         description:
             "A personal finance dashboard with budgeting, analytics, and goal tracking built using the MERN stack.",
-        image: "/images/myledger-preview.png",
+        image: "/portfolio/images/myledger-preview.png",
         technologies: ["React", "Node.js", "Express", "MongoDB"],
         demo: "https://my-ledger-cholland.vercel.app/",
         repo: "https://github.com/Christopher-Holland/myledger.git",
@@ -17,9 +17,9 @@ const projects = [
     {
         title: "Portfolio Website",
         description:
-            "This interactive portfolio built with React, TailwindCSS, and Framer Motion showcases my development work and design style.",
-        image: "/images/portfolio-preview.png",
-        technologies: ["React", "TailwindCSS", "Framer Motion"],
+            "This interactive portfolio website showcases my development projects and design style. Built with React and TailwindCSS, it features smooth animations, responsive layouts, and dynamic project displays to provide an engaging user experience.",
+        image: "/portfolio/images/portfolio_demo.png",
+        technologies: ["React", "TailwindCSS", "Framer Motion", "JavaScript", "HTML", "CSS", "Vite", "EmailJS", "Lucide-React", "GitHub Pages"],
         demo: "#",
         repo: "https://github.com/Christopher-Holland/portfolio.git",
     },
@@ -27,7 +27,7 @@ const projects = [
         title: "Next Project Placeholder",
         description:
             "An upcoming project that will be added soon — stay tuned for more updates.",
-        image: "/images/coming-soon.png",
+        image: "/portfolio/images/coming-soon.png",
         technologies: ["TBD"],
     },
 ];

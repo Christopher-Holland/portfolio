@@ -1,17 +1,18 @@
 import React, { useRef, useState, useEffect } from "react";
 import RevealOnScroll from "./RevealOnScroll";
 import ProjectCard from "./ProjectCard";
+import ProjectModal from "../ProjectModal";
 import '../../index.css';
 
 const projects = [
     {
-        title: "Ledgerly",
+        title: "My Ledger",
         description:
             "A personal finance dashboard with budgeting, analytics, and goal tracking built using the MERN stack.",
-        image: "/images/ledgerly-preview.png",
+        image: "/images/myledger-preview.png",
         technologies: ["React", "Node.js", "Express", "MongoDB"],
-        demo: "https://ledgerly.vercel.app",
-        repo: "https://github.com/yourusername/ledgerly",
+        demo: "https://my-ledger-cholland.vercel.app/",
+        repo: "https://github.com/Christopher-Holland/myledger.git",
     },
     {
         title: "Portfolio Website",
@@ -20,7 +21,7 @@ const projects = [
         image: "/images/portfolio-preview.png",
         technologies: ["React", "TailwindCSS", "Framer Motion"],
         demo: "#",
-        repo: "https://github.com/yourusername/portfolio",
+        repo: "https://github.com/Christopher-Holland/portfolio.git",
     },
     {
         title: "Next Project Placeholder",
@@ -34,28 +35,28 @@ const projects = [
 export const Projects = () => {
     const containerRef = useRef(null);
     const [currentIndex, setCurrentIndex] = useState(0);
-
+    const [selectedProject, setSelectedProject] = useState(null);
     // Scroll to a project index
     const scrollToIndex = (index) => {
         if (!containerRef.current) return;
         const container = containerRef.current;
         const child = container.children[index];
         if (!child) return;
-        
+
         const containerWidth = container.offsetWidth;
         const childWidth = child.offsetWidth;
         const childLeft = child.offsetLeft;
-        
+
         // Calculate offset to center the child
         const offset = childLeft - (containerWidth / 2) + (childWidth / 2);
-        
+
         console.log(`Scrolling to index ${index}, offset: ${offset}, childLeft: ${childLeft}, containerWidth: ${containerWidth}, childWidth: ${childWidth}`);
-        
-        container.scrollTo({ 
-            left: offset, 
-            behavior: "smooth" 
+
+        container.scrollTo({
+            left: offset,
+            behavior: "smooth"
         });
-        
+
         // Update current index immediately
         setCurrentIndex(index);
     };
@@ -73,9 +74,9 @@ export const Projects = () => {
         if (!containerRef.current) return;
         const container = containerRef.current;
         const children = Array.from(container.children);
-        
+
         if (children.length === 0) return;
-        
+
         const containerCenter = container.scrollLeft + container.offsetWidth / 2;
 
         let closestIndex = 0;
@@ -84,7 +85,7 @@ export const Projects = () => {
         children.forEach((child, index) => {
             const childCenter = child.offsetLeft + child.offsetWidth / 2;
             const distance = Math.abs(childCenter - containerCenter);
-            
+
             if (distance < minDistance) {
                 minDistance = distance;
                 closestIndex = index;
@@ -102,15 +103,15 @@ export const Projects = () => {
     useEffect(() => {
         const container = containerRef.current;
         if (!container) return;
-        
+
         // Add scroll event listener
         container.addEventListener("scroll", handleScroll, { passive: true });
-        
+
         // Initial scroll to first card centered after a short delay
         const timer = setTimeout(() => {
             scrollToIndex(0);
         }, 200);
-        
+
         return () => {
             container.removeEventListener("scroll", handleScroll);
             clearTimeout(timer);
@@ -154,8 +155,8 @@ export const Projects = () => {
                         <div
                             ref={containerRef}
                             className="flex overflow-x-auto scroll-smooth gap-6 px-6 py-8 scrollbar-hide"
-                            style={{ 
-                                scrollbarWidth: 'none', 
+                            style={{
+                                scrollbarWidth: 'none',
                                 msOverflowStyle: 'none',
                                 scrollSnapType: 'x mandatory'
                             }}
@@ -167,7 +168,9 @@ export const Projects = () => {
                                         }`}
                                     style={{ scrollSnapAlign: 'center' }}
                                 >
-                                    <ProjectCard project={project} />
+                                    <ProjectCard
+                                        project={project}
+                                        onClick={() => setSelectedProject(project)} />
                                 </div>
                             ))}
                         </div>
@@ -179,8 +182,8 @@ export const Projects = () => {
                                     key={index}
                                     onClick={() => scrollToIndex(index)}
                                     className={`w-3 h-3 rounded-full transition-all duration-300 ${index === currentIndex
-                                            ? "bg-[#00ffcc] scale-125"
-                                            : "bg-[#00ffcc]/30 hover:bg-[#00ffcc]/60"
+                                        ? "bg-[#00ffcc] scale-125"
+                                        : "bg-[#00ffcc]/30 hover:bg-[#00ffcc]/60"
                                         }`}
                                 />
                             ))}
@@ -188,6 +191,12 @@ export const Projects = () => {
                     </div>
                 </div>
             </RevealOnScroll>
+            {selectedProject && (
+                <ProjectModal
+                    project={selectedProject}
+                    onClose={() => setSelectedProject(null)}
+                />
+            )}
         </section>
     );
 };

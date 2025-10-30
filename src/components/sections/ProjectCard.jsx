@@ -1,8 +1,11 @@
 import React from "react";
 
-const ProjectCard = ({ project }) => {
+const ProjectCard = ({ project, onClick }) => {
     return (
-        <div className="bg-[#0a0a0a] border border-[#00ffcc]/20 rounded-2xl p-4 sm:p-6 text-center transition-all duration-300 hover:scale-105">
+        <div
+            onClick={onClick}
+            className="cursor-pointer bg-[#0a0a0a] border border-[#00ffcc]/20 rounded-2xl p-4 sm:p-6 text-center transition-all duration-300 hover:scale-105"
+        >
             <div className="relative overflow-hidden rounded-xl mb-4">
                 <img
                     src={project.image}
@@ -27,21 +30,21 @@ const ProjectCard = ({ project }) => {
             </div>
 
             <div className="flex justify-center gap-2 sm:gap-4 flex-wrap">
-                {project.demo && (
-                    <a
-                        href={project.demo}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="px-3 sm:px-4 py-2 border border-[#00ffcc]/40 rounded-lg hover:bg-[#00ffcc]/10 hover:border-[#00ffcc] transition-all duration-300 glow-text text-sm sm:text-base"
-                    >
-                        Live Demo
-                    </a>
-                )}
+                <button
+                    onClick={(e) => {
+                        e.stopPropagation(); // prevent modal click
+                        onClick(); // open modal
+                    }}
+                    className="px-3 sm:px-4 py-2 border border-[#00ffcc]/40 rounded-lg hover:bg-[#00ffcc]/10 hover:border-[#00ffcc] transition-all duration-300 glow-text text-sm sm:text-base"
+                >
+                    See More
+                </button>
                 {project.repo && (
                     <a
                         href={project.repo}
                         target="_blank"
                         rel="noopener noreferrer"
+                        onClick={(e) => e.stopPropagation()} // prevent modal click
                         className="px-3 sm:px-4 py-2 border border-[#00ffcc]/40 rounded-lg hover:bg-[#00ffcc]/10 hover:border-[#00ffcc] transition-all duration-300 glow-text text-sm sm:text-base"
                     >
                         GitHub

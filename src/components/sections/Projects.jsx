@@ -7,8 +7,19 @@ import '../../index.css';
 const projects = [
     {
         title: "My Ledger",
-        description:
-            "A personal finance dashboard with budgeting, analytics, and goal tracking built using the MERN stack.",
+        cardDescription:
+            "A full-stack personal finance tracker that helps users manage bills, monitor savings goals, and visualize spending trends with an intuitive dashboard.",
+        modalDescription: `
+                <p><strong>Overview:</strong> My Ledger is a full-stack personal finance management app built with the MERN stack (MongoDB, Express, React, Node.js). It allows users to organize bills, set and track savings goals, and visualize their spending through an interactive dashboard.</p>
+                <ul>
+                    <li>Secure user authentication using JWT and bcrypt</li>
+                    <li>CRUD functionality for bills and savings goals</li>
+                    <li>Responsive React UI styled with TailwindCSS</li>
+                    <li>Interactive charts and goal progress indicators</li>
+                    <li>Deployed using Render (backend) and Vercel (frontend)</li>
+                </ul>
+                <p>Developing My Ledger strengthened my understanding of full-stack application architecture, secure authentication, and state management, while providing real-world experience deploying scalable applications.</p>
+            `,
         image: "/portfolio/images/myledger-preview.png",
         technologies: ["React", "Node.js", "Express", "MongoDB"],
         demo: "https://my-ledger-cholland.vercel.app/",
@@ -16,8 +27,18 @@ const projects = [
     },
     {
         title: "Portfolio Website",
-        description:
-            "This interactive portfolio website showcases my development projects and design style. Built with React and TailwindCSS, it features smooth animations, responsive layouts, and dynamic project displays to provide an engaging user experience.",
+        cardDescription: "A modern personal portfolio showcasing my projects, skills, and experience as a software engineer with smooth animations and a responsive design.",
+        modalDescription: `
+            <p><strong>Overview:</strong> This portfolio website was designed and developed to highlight my work as a software engineer. It showcases my featured projects, technical skills, and background through a clean, responsive, and interactive interface built with modern web technologies.</p>
+            <ul>
+                <li>Developed with React and Vite for fast, component-based rendering</li>
+                <li>Styled using TailwindCSS for responsive, mobile-friendly layouts</li>
+                <li>Includes smooth scroll animations and reveal effects for engaging UX</li>
+                <li>Integrated dynamic project modals with detailed descriptions and links</li>
+                <li>Deployed using Vercel with optimized performance and SEO configuration</li>
+            </ul>
+            <p>This project demonstrates my ability to design, develop, and deploy modern front-end web applications while focusing on performance, aesthetics, and user experience.</p>
+        `,
         image: "/portfolio/images/portfolio_demo.png",
         technologies: ["React", "TailwindCSS", "Framer Motion", "JavaScript", "HTML", "CSS", "Vite", "EmailJS", "Lucide-React", "GitHub Pages"],
         demo: "#",
@@ -25,8 +46,9 @@ const projects = [
     },
     {
         title: "Next Project Placeholder",
-        description:
+        cardDescription:
             "An upcoming project that will be added soon — stay tuned for more updates.",
+        modalDescription: "tbd",
         image: "/portfolio/images/coming-soon.png",
         technologies: ["TBD"],
     },

@@ -16,7 +16,7 @@ const ProjectCard = ({ project, onClick }) => {
             </div>
 
             <h3 className="text-xl sm:text-2xl font-bold mb-2 glow-text">{project.title}</h3>
-            <p className="text-sm sm:text-base text-[#00ffcc]/70 mb-4 leading-relaxed">{project.description}</p>
+            <p className="text-sm sm:text-base text-[#00ffcc]/70 mb-4 leading-relaxed">{project.cardDescription}</p>
 
             <div className="flex justify-center flex-wrap gap-2 mb-4">
                 {project.technologies.map((tech, i) => (
@@ -37,7 +37,7 @@ const ProjectCard = ({ project, onClick }) => {
                     }}
                     className="px-3 sm:px-4 py-2 border border-[#00ffcc]/40 rounded-lg hover:bg-[#00ffcc]/10 hover:border-[#00ffcc] transition-all duration-300 glow-text text-sm sm:text-base"
                 >
-                    See More
+                    Learn More
                 </button>
                 {project.repo && (
                     <a

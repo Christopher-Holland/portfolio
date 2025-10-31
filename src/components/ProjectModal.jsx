@@ -21,7 +21,7 @@ const ProjectModal = ({ project, onClose, projects, currentIndex, onPrevious, on
                     >
                         <ChevronLeft size={24} />
                     </button>
-                    
+
                     {/* Next button */}
                     <button
                         onClick={onNext}
@@ -30,7 +30,7 @@ const ProjectModal = ({ project, onClose, projects, currentIndex, onPrevious, on
                     >
                         <ChevronRight size={24} />
                     </button>
-                    
+
                     {/* Close button */}
                     <button
                         onClick={onClose}
@@ -58,7 +58,10 @@ const ProjectModal = ({ project, onClose, projects, currentIndex, onPrevious, on
                             {currentIndex + 1} of {projects.length}
                         </span>
                     </div>
-                    <p className="mb-4">{project.description}</p>
+                    <div
+                        className="modal-description"
+                        dangerouslySetInnerHTML={{ __html: project.modalDescription }}
+                    />
 
                     {project.technologies && project.technologies.length > 0 && (
                         <p className="mb-4">
@@ -75,7 +78,7 @@ const ProjectModal = ({ project, onClose, projects, currentIndex, onPrevious, on
                                 rel="noopener noreferrer"
                                 className="py-2 px-4 border border-[#00ffcc] rounded hover:shadow-[0_0_15px_#00ffaa] transition text-sm"
                             >
-                                Demo
+                                Visit Website
                             </a>
                         )}
                         {project.repo && (

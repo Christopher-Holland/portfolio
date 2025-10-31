@@ -11,7 +11,7 @@ export const Home = () => {
     const [statsList] = useState([
         "Commits this year: 194",
         "Public repositories: 4",
-        "Languages: JavaScript, Javv, HTML",
+        "Languages: JavaScript, Java, HTML",
         "Total projects: 17",
     ]);
 
@@ -99,7 +99,7 @@ export const Home = () => {
             {/* Left column: Intro */}
             <div className="flex-1 flex flex-col justify-center w-full lg:w-auto mb-8 lg:mb-0">
                 <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-6 glow-text flicker">
-                    Hi, I'm Christopher Holland
+                    Christopher Holland
                 </h1>
 
                 <h2 className="text-xl sm:text-2xl md:text-3xl font-mono mb-4">

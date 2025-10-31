@@ -115,7 +115,7 @@ export const About = () => {
                         About Me
                     </h2>
 
-                    <div className="rounded-xl p-4 sm:p-6 md:p-8 border border-[#00ffcc]/20 hover:-translate-y-1 transition-all glow-text">
+                    <div className="rounded-xl p-4 sm:p-6 md:p-8 border border-[#00ffcc]/20 hover:-translate-y-1 transition-all">
                         <p className="text-[#00ffcc]/70 mb-6 text-sm sm:text-base md:text-lg">
                             I'm a software engineer transitioning from a career in CAD and engineering design. While I don't have traditional dev experience, I've spent years honing problem-solving, technical, and project management skills that translate directly to coding. Recently, I've focused on full-stack development, building web apps with React, Node.js, and MongoDB. I enjoy creating projects that are both functional and visually engaging, and I bring the same attention to detail and creativity from engineering design to every line of code I write.
                         </p>
@@ -142,8 +142,8 @@ export const About = () => {
                     {/* Education & Experience */}
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 mt-8 max-w-6xl mx-auto w-full">
                         {/* Education */}
-                        <div className="p-4 sm:p-6 rounded-xl border border-[#00ffcc]/20 hover:-translate-y-1 transition-all glow-text flicker">
-                            <h3 className="text-lg sm:text-xl font-bold mb-4">Education</h3>
+                        <div className="p-4 sm:p-6 rounded-xl border border-[#00ffcc]/20 hover:-translate-y-1 transition-all flicker">
+                            <h3 className="text-lg sm:text-xl font-bold mb-4 glow-text">Education</h3>
                             <ul className="text-[#00ffcc]/70 space-y-3 text-sm sm:text-base" style={{ listStyleType: 'disc', listStylePosition: 'outside', paddingLeft: '1.5rem' }}>
                                 {degrees.map((deg, i) => (
                                     <li key={i} className="leading-relaxed">
@@ -157,8 +157,8 @@ export const About = () => {
                         </div>
 
                         {/* Experience */}
-                        <div className="p-4 sm:p-6 rounded-xl border border-[#00ffcc]/20 hover:-translate-y-1 transition-all glow-text flicker">
-                            <h3 className="text-lg sm:text-xl font-bold mb-4">Experience</h3>
+                        <div className="p-4 sm:p-6 rounded-xl border border-[#00ffcc]/20 hover:-translate-y-1 transition-all flicker">
+                            <h3 className="text-lg sm:text-xl font-bold mb-4 glow-text">Experience</h3>
                             <ul className="text-[#00ffcc]/70 space-y-3 text-sm sm:text-base" style={{ listStyleType: 'disc', listStylePosition: 'outside', paddingLeft: '1.5rem' }}>
                                 {experience.map((exp, i) => (
                                     <li key={i} className="leading-relaxed">

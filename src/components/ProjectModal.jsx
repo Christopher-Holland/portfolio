@@ -1,9 +1,22 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { X, ChevronLeft, ChevronRight } from "lucide-react"; // close icon and navigation icons
 import "../index.css";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay } from "swiper/modules";
+import "swiper/css";
 
 const ProjectModal = ({ project, onClose, projects, currentIndex, onPrevious, onNext }) => {
+    const [activeImageIndex, setActiveImageIndex] = useState(0);
+    
     if (!project) return null;
+
+    // Normalize images to an array
+    const imageArray = Array.isArray(project.images) ? project.images : [project.images];
+    
+    // Reset active image index when project changes
+    useEffect(() => {
+        setActiveImageIndex(0);
+    }, [project.title]);
 
     return (
         <div
@@ -11,43 +24,83 @@ const ProjectModal = ({ project, onClose, projects, currentIndex, onPrevious, on
         >
             {/* Modal content */}
             <div className="relative w-full max-w-3xl bg-[#0a0a0a] border border-[#00ffcc]/50 rounded-xl shadow-[0_0_20px_#00ffaa] overflow-y-auto max-h-[90vh]">
-                {/* Navigation and Close buttons */}
-                <div className="absolute top-4 right-4 flex gap-2">
-                    {/* Previous button */}
-                    <button
-                        onClick={onPrevious}
-                        className="text-[#00ffcc] hover:text-[#00ffaa] transition p-1"
-                        title="Previous Project"
-                    >
-                        <ChevronLeft size={24} />
-                    </button>
+                {/* Navigation and Close buttons - positioned above images */}
+                <div className="flex justify-between items-center p-4 pb-2">
+                    {/* Title placeholder for spacing */}
+                    <div className="flex-1"></div>
+                    
+                    {/* Navigation buttons */}
+                    <div className="flex gap-2">
+                        {/* Previous button */}
+                        <button
+                            onClick={onPrevious}
+                            className="bg-[#0a0a0a]/90 backdrop-blur-sm border border-[#00ffcc]/30 rounded-full p-2 text-[#00ffcc] hover:text-[#00ffaa] hover:bg-[#00ffcc]/10 transition z-30"
+                            title="Previous Project"
+                        >
+                            <ChevronLeft size={24} />
+                        </button>
 
-                    {/* Next button */}
-                    <button
-                        onClick={onNext}
-                        className="text-[#00ffcc] hover:text-[#00ffaa] transition p-1"
-                        title="Next Project"
-                    >
-                        <ChevronRight size={24} />
-                    </button>
+                        {/* Next button */}
+                        <button
+                            onClick={onNext}
+                            className="bg-[#0a0a0a]/90 backdrop-blur-sm border border-[#00ffcc]/30 rounded-full p-2 text-[#00ffcc] hover:text-[#00ffaa] hover:bg-[#00ffcc]/10 transition z-30"
+                            title="Next Project"
+                        >
+                            <ChevronRight size={24} />
+                        </button>
 
-                    {/* Close button */}
-                    <button
-                        onClick={onClose}
-                        className="text-[#00ffcc] hover:text-[#00ffaa] transition p-1"
-                        title="Close Modal"
-                    >
-                        <X size={24} />
-                    </button>
+                        {/* Close button */}
+                        <button
+                            onClick={onClose}
+                            className="bg-[#0a0a0a]/90 backdrop-blur-sm border border-[#00ffcc]/30 rounded-full p-2 text-[#00ffcc] hover:text-[#00ffaa] hover:bg-[#00ffcc]/10 transition z-30"
+                            title="Close Modal"
+                        >
+                            <X size={24} />
+                        </button>
+                    </div>
                 </div>
 
-                {/* Project image */}
-                {project.image && (
-                    <img
-                        src={project.image}
-                        alt={project.title}
-                        className="w-full h-64 object-cover rounded-t-xl"
-                    />
+                {/* Project images carousel */}
+                {imageArray && imageArray.length > 0 && (
+                    <div className="w-full px-4 pb-4">
+                        <Swiper
+                            modules={[Autoplay]}
+                            spaceBetween={30}
+                            slidesPerView={1}
+                            autoplay={{
+                                delay: 5000,
+                                disableOnInteraction: false,
+                            }}
+                            onSlideChange={(swiper) => setActiveImageIndex(swiper.activeIndex)}
+                            className="w-full"
+                        >
+                            {imageArray.map((img, index) => (
+                                <SwiperSlide key={index}>
+                                    <div className="flex justify-center items-center w-full">
+                                        <img
+                                            src={img}
+                                            alt={`${project.title} screenshot ${index + 1}`}
+                                            className="max-w-full max-h-[500px] w-auto h-auto object-contain rounded-lg shadow-md"
+                                        />
+                                    </div>
+                                </SwiperSlide>
+                            ))}
+                        </Swiper>
+                        {imageArray.length > 1 && (
+                            <div className="flex justify-center mt-4 gap-2">
+                                {imageArray.map((_, index) => (
+                                    <div
+                                        key={index}
+                                        className={`w-2 h-2 rounded-full transition-all ${
+                                            index === activeImageIndex
+                                                ? "bg-[#00ffcc] w-6"
+                                                : "bg-[#00ffcc]/30"
+                                        }`}
+                                    />
+                                ))}
+                            </div>
+                        )}
+                    </div>
                 )}
 
                 {/* Project details */}

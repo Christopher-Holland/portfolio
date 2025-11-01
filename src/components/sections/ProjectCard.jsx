@@ -8,7 +8,7 @@ const ProjectCard = ({ project, onClick }) => {
         >
             <div className="relative overflow-hidden rounded-xl mb-4">
                 <img
-                    src={project.image}
+                    src={project.thumbnail}
                     alt={project.title}
                     className="w-full h-40 sm:h-48 object-cover transition-transform duration-300 hover:scale-105"
                 />

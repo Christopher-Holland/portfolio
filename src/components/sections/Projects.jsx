@@ -1,3 +1,5 @@
+//FINISH ADDING THE image TO MY LEDGER PROJECT
+
 import React, { useRef, useState, useEffect } from "react";
 import RevealOnScroll from "./RevealOnScroll";
 import ProjectCard from "./ProjectCard";
@@ -20,7 +22,20 @@ const projects = [
                 </ul>
                 <p>Developing My Ledger strengthened my understanding of full-stack application architecture, secure authentication, and state management, while providing real-world experience deploying scalable applications.</p>
             `,
-        image: "/portfolio/images/myledger-preview.png",
+        images: [
+            "/portfolio/images/my-ledger/login.png",
+            "/portfolio/images/my-ledger/dashboard-page.png",
+            "/portfolio/images/my-ledger/accounts-page.png",
+            "/portfolio/images/my-ledger/add-account.png",
+            "/portfolio/images/my-ledger/create-account.png",
+            "/portfolio/images/my-ledger/add-transaction.png",
+            "/portfolio/images/my-ledger/transaction-page.png",
+            "/portfolio/images/my-ledger/add-goal.png",
+            "/portfolio/images/my-ledger/goals-page.png",
+            "/portfolio/images/my-ledger/reports-page.png",
+            "/portfolio/images/my-ledger/settings.png",
+        ],
+        thumbnail: "/portfolio/images/my-ledger/login.png",
         technologies: ["React", "Node.js", "Express", "MongoDB"],
         demo: "https://my-ledger-cholland.vercel.app/",
         repo: "https://github.com/Christopher-Holland/myledger.git",
@@ -39,7 +54,8 @@ const projects = [
             </ul>
             <p>This project demonstrates my ability to design, develop, and deploy modern front-end web applications while focusing on performance, aesthetics, and user experience.</p>
         `,
-        image: "/portfolio/images/portfolio_demo.png",
+        images: "/portfolio/images/portfolio_demo.png",
+        thumbnail: "/portfolio/images/portfolio_demo.png",
         technologies: ["React", "TailwindCSS", "Framer Motion", "JavaScript", "HTML", "CSS", "Vite", "EmailJS", "Lucide-React", "GitHub Pages"],
         demo: "#",
         repo: "https://github.com/Christopher-Holland/portfolio.git",
@@ -49,7 +65,8 @@ const projects = [
         cardDescription:
             "An upcoming project that will be added soon — stay tuned for more updates.",
         modalDescription: "tbd",
-        image: "/portfolio/images/coming-soon.png",
+        images: "/portfolio/images/coming-soon.png",
+        thumbnail: "/portfolio/images/coming-soon.png",
         technologies: ["TBD"],
     },
 ];

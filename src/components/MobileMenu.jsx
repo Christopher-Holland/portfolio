@@ -1,7 +1,28 @@
+/**
+ * MobileMenu Component
+ * 
+ * Full-screen mobile navigation menu that slides in from the top.
+ * Includes navigation links, social media icons, and close button.
+ * Uses CSS transitions for smooth open/close animations.
+ * 
+ * @component
+ * @param {Object} props - Component props
+ * @param {boolean} props.menuOpen - Whether the menu is currently open
+ * @param {Function} props.setMenuOpen - Function to control menu open state
+ * @returns {JSX.Element} Full-screen mobile navigation menu
+ */
+
 import "../index.css";
 import { FaLinkedin, FaGithub } from "react-icons/fa";
 
+/**
+ * MobileMenu Component
+ * 
+ * Renders a full-screen overlay menu for mobile devices.
+ * Animates visibility and includes navigation links and social icons.
+ */
 export const MobileMenu = ({ menuOpen, setMenuOpen }) => {
+    // Navigation link configuration
     const links = [
         { href: "#home", label: "Home" },
         { href: "#about", label: "About" },
@@ -38,24 +59,36 @@ export const MobileMenu = ({ menuOpen, setMenuOpen }) => {
                 &times;
             </button>
 
-            {/* Links */}
+            {/* Navigation Links with staggered animation */}
             {links.map((link) => (
                 <a
                     key={link.href}
                     href={link.href}
                     onClick={() => setMenuOpen(false)}
-                    className={`relative z-10 text-3xl font-mono my-4 transform transition-transform duration-300 glow-text hover:text-[#00ffaa] flicker ${menuOpen ? "translate-y-0 opacity-100" : "translate-y-5 opacity-0"
-                        }`}
+                    className={`relative z-10 text-3xl font-mono my-4 transform transition-transform duration-300 glow-text hover:text-[#00ffaa] flicker ${
+                        menuOpen ? "translate-y-0 opacity-100" : "translate-y-5 opacity-0"
+                    }`}
                 >
                     {link.label}
                 </a>
             ))}
-            {/* Social icons */}
+            
+            {/* Social Media Icons */}
             <div className="flex gap-4 mt-2">
-                <a href="https://github.com/Christopher-Holland" target="_blank" rel="noopener noreferrer">
+                <a 
+                    href="https://github.com/Christopher-Holland" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    aria-label="GitHub Profile"
+                >
                     <FaGithub size={32} color="#00ffcc" />
                 </a>
-                <a href="https://www.linkedin.com/in/christopher-holland-535312344" target="_blank" rel="noopener noreferrer">
+                <a 
+                    href="https://www.linkedin.com/in/christopher-holland-535312344" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    aria-label="LinkedIn Profile"
+                >
                     <FaLinkedin size={32} color="#00ffcc" />
                 </a>
             </div>

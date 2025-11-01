@@ -1,5 +1,24 @@
+/**
+ * ProjectCard Component
+ * 
+ * Displays a single project in card format with thumbnail, description,
+ * technology tags, and action buttons.
+ * 
+ * @component
+ * @param {Object} props - Component props
+ * @param {Object} props.project - Project object with title, thumbnail, description, etc.
+ * @param {Function} props.onClick - Callback function when card is clicked
+ * @returns {JSX.Element} Project card component
+ */
+
 import React from "react";
 
+/**
+ * ProjectCard Component
+ * 
+ * Renders a clickable card displaying project information.
+ * Opens modal when clicked or when "Learn More" button is pressed.
+ */
 const ProjectCard = ({ project, onClick }) => {
     return (
         <div
@@ -29,22 +48,26 @@ const ProjectCard = ({ project, onClick }) => {
                 ))}
             </div>
 
+            {/* Action Buttons */}
             <div className="flex justify-center gap-2 sm:gap-4 flex-wrap">
+                {/* Learn More Button - Opens project modal */}
                 <button
                     onClick={(e) => {
-                        e.stopPropagation(); // prevent modal click
-                        onClick(); // open modal
+                        e.stopPropagation(); // Prevent card click event from firing
+                        onClick(); // Open project detail modal
                     }}
                     className="px-3 sm:px-4 py-2 border border-[#00ffcc]/40 rounded-lg hover:bg-[#00ffcc]/10 hover:border-[#00ffcc] transition-all duration-300 glow-text text-sm sm:text-base"
                 >
                     Learn More
                 </button>
+                
+                {/* GitHub Link - Only shown if repository URL exists */}
                 {project.repo && (
                     <a
                         href={project.repo}
                         target="_blank"
                         rel="noopener noreferrer"
-                        onClick={(e) => e.stopPropagation()} // prevent modal click
+                        onClick={(e) => e.stopPropagation()} // Prevent card click event
                         className="px-3 sm:px-4 py-2 border border-[#00ffcc]/40 rounded-lg hover:bg-[#00ffcc]/10 hover:border-[#00ffcc] transition-all duration-300 glow-text text-sm sm:text-base"
                     >
                         GitHub

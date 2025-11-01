@@ -1,6 +1,23 @@
+/**
+ * Global Styles
+ * 
+ * Main stylesheet containing:
+ * - Tailwind CSS imports
+ * - Global base styles
+ * - CRT terminal aesthetic effects
+ * - Animation keyframes
+ * - Component-specific styles
+ * 
+ * @fileoverview Global CSS styles for portfolio application
+ */
+
 @import "tailwindcss";
 
-/* ===== Global Styles ===== */
+/* ===== Global Base Styles ===== */
+/**
+ * Root HTML and Body Styles
+ * Sets up monospace font, color scheme, and background gradient
+ */
 html,
 body {
   margin: 0;
@@ -13,7 +30,10 @@ body {
 }
 
 /* ===== CRT Terminal Aesthetic ===== */
-/* Subtle horizontal scan lines */
+/**
+ * Subtle horizontal scan lines overlay
+ * Creates retro CRT monitor effect across entire page
+ */
 body::before {
   content: "";
   position: fixed;
@@ -31,7 +51,10 @@ body::before {
   z-index: 1;
 }
 
-/* Slight flicker effect for realism */
+/**
+ * Flicker Animation
+ * Simulates CRT monitor flicker for authentic terminal aesthetic
+ */
 @keyframes flicker {
 
   0%,
@@ -101,20 +124,12 @@ body::before {
   }
 }
 
-/* ===== Reveal Animation ===== */
-.reveal {
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.7s ease, transform 0.7s ease;
-}
-
-.reveal.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-
-/* Base reveal for all animations */
+/* ===== Scroll Reveal Animation ===== */
+/**
+ * Reveal Animation Classes
+ * Used by RevealOnScroll component for fade-in and slide-up effects
+ * when elements enter viewport
+ */
 .reveal {
   opacity: 0;
   transform: translateY(20px);
@@ -126,6 +141,11 @@ body::before {
   transform: translateY(0);
 }
 
+/* ===== Modal Description Styles ===== */
+/**
+ * Styling for HTML content rendered in project modals
+ * Ensures proper spacing and typography for markdown/HTML content
+ */
 .modal-description p {
   margin-bottom: 1rem;
   line-height: 1.6;

@@ -1,28 +1,56 @@
+/**
+ * Contact Component
+ * 
+ * Contact form section that allows visitors to send messages via EmailJS.
+ * Includes form validation and submission handling.
+ * 
+ * @component
+ * @returns {JSX.Element} Contact form section
+ */
+
 import { useState } from "react";
 import RevealOnScroll from "./RevealOnScroll";
 import emailjs from 'emailjs-com';
 
+/**
+ * Contact Component
+ * 
+ * Renders a contact form with name, email, and message fields.
+ * Uses EmailJS service to send emails without backend infrastructure.
+ */
 export const Contact = () => {
+    // Form state management
     const [formData, setFormData] = useState({
         name: '',
         email: '',
         message: '',
     });
 
+    /**
+     * Form Submission Handler
+     * 
+     * Sends form data via EmailJS and shows success/error feedback.
+     * Resets form on successful submission.
+     * 
+     * @param {Event} e - Form submit event
+     */
     const handleSubmit = (e) => {
         e.preventDefault();
 
+        // Send form via EmailJS using environment variables
         emailjs.sendForm(
-            import.meta.env.VITE_SERVICE_ID,
-            import.meta.env.VITE_TEMPLATE_ID,
-            e.target,
-            import.meta.env.VITE_PUBLIC_KEY
+            import.meta.env.VITE_SERVICE_ID,      // EmailJS service ID
+            import.meta.env.VITE_TEMPLATE_ID,     // EmailJS template ID
+            e.target,                              // Form element
+            import.meta.env.VITE_PUBLIC_KEY        // EmailJS public key
         )
             .then(() => {
+                // Success: Show feedback and reset form
                 alert('Message sent successfully');
                 setFormData({ name: '', email: '', message: '' });
             })
             .catch(() => {
+                // Error: Show feedback to user
                 alert('Message failed to send');
             });
     };

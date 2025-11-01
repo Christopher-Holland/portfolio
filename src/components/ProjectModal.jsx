@@ -1,19 +1,52 @@
+/**
+ * ProjectModal Component
+ * 
+ * Modal dialog that displays detailed project information including:
+ * - Image carousel with autoplay functionality
+ * - Project description, technologies, and links
+ * - Navigation between projects
+ * 
+ * @component
+ * @param {Object} props - Component props
+ * @param {Object} props.project - Project object containing title, images, description, etc.
+ * @param {Function} props.onClose - Callback to close the modal
+ * @param {Array} props.projects - Array of all projects for navigation
+ * @param {number} props.currentIndex - Current project index in the projects array
+ * @param {Function} props.onPrevious - Callback to navigate to previous project
+ * @param {Function} props.onNext - Callback to navigate to next project
+ * @returns {JSX.Element|null} Modal component or null if no project is selected
+ */
+
 import React, { useState, useEffect } from "react";
-import { X, ChevronLeft, ChevronRight } from "lucide-react"; // close icon and navigation icons
+import { X, ChevronLeft, ChevronRight } from "lucide-react";
 import "../index.css";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
 import "swiper/css";
 
+/**
+ * ProjectModal Component
+ * 
+ * Displays a full-screen modal with project details, image carousel,
+ * and navigation controls. Uses Swiper for image carousel functionality.
+ */
 const ProjectModal = ({ project, onClose, projects, currentIndex, onPrevious, onNext }) => {
+    // Track which image in the carousel is currently active
     const [activeImageIndex, setActiveImageIndex] = useState(0);
     
+    // Early return if no project is provided
     if (!project) return null;
 
-    // Normalize images to an array
+    /**
+     * Normalize images to array format
+     * Handles both single image strings and image arrays
+     */
     const imageArray = Array.isArray(project.images) ? project.images : [project.images];
     
-    // Reset active image index when project changes
+    /**
+     * Reset image carousel to first image when project changes
+     * Prevents showing wrong image when switching between projects
+     */
     useEffect(() => {
         setActiveImageIndex(0);
     }, [project.title]);
@@ -60,16 +93,17 @@ const ProjectModal = ({ project, onClose, projects, currentIndex, onPrevious, on
                     </div>
                 </div>
 
-                {/* Project images carousel */}
+                {/* Image Carousel Section */}
                 {imageArray && imageArray.length > 0 && (
                     <div className="w-full px-4 pb-4">
+                        {/* Swiper Carousel with Autoplay */}
                         <Swiper
                             modules={[Autoplay]}
                             spaceBetween={30}
                             slidesPerView={1}
                             autoplay={{
-                                delay: 5000,
-                                disableOnInteraction: false,
+                                delay: 5000, // 5 second delay between slides
+                                disableOnInteraction: false, // Continue autoplay after user interaction
                             }}
                             onSlideChange={(swiper) => setActiveImageIndex(swiper.activeIndex)}
                             className="w-full"
@@ -86,6 +120,8 @@ const ProjectModal = ({ project, onClose, projects, currentIndex, onPrevious, on
                                 </SwiperSlide>
                             ))}
                         </Swiper>
+                        
+                        {/* Carousel Indicators - Only show if multiple images */}
                         {imageArray.length > 1 && (
                             <div className="flex justify-center mt-4 gap-2">
                                 {imageArray.map((_, index) => (
@@ -93,9 +129,10 @@ const ProjectModal = ({ project, onClose, projects, currentIndex, onPrevious, on
                                         key={index}
                                         className={`w-2 h-2 rounded-full transition-all ${
                                             index === activeImageIndex
-                                                ? "bg-[#00ffcc] w-6"
-                                                : "bg-[#00ffcc]/30"
+                                                ? "bg-[#00ffcc] w-6" // Active indicator is wider
+                                                : "bg-[#00ffcc]/30" // Inactive indicators are dimmed
                                         }`}
+                                        aria-label={`Image ${index + 1} of ${imageArray.length}`}
                                     />
                                 ))}
                             </div>

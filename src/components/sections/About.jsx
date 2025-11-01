@@ -1,8 +1,25 @@
+/**
+ * About Component
+ * 
+ * About section displaying personal information, education, experience,
+ * technology stack, and GitHub activity calendar.
+ * Features animated tech logo ticker.
+ * 
+ * @component
+ * @returns {JSX.Element} About section with personal information
+ */
+
 import { useState, useEffect, useRef } from "react";
 import "../../index.css";
 import GitHubCalendar from "react-github-calendar";
 import RevealOnScroll from "./RevealOnScroll";
 
+/**
+ * Technology Logo Imports
+ * 
+ * Frontend and backend technology logos imported as SVG modules
+ * for optimal bundling and tree-shaking.
+ */
 // Import SVG logos as modules
 import HTML5Logo from "../logos/HTML5.svg";
 import CSS3Logo from "../logos/CSS3.svg";
@@ -15,7 +32,12 @@ import ExpressLogo from "../logos/Express.svg";
 import MongoDBLogo from "../logos/MongoDB.svg";
 import PostgreSQLLogo from "../logos/PostgresSQL.svg";
 
-// Tech logos with proper imports
+/**
+ * Technology Stack Configuration
+ * 
+ * Groups technology logos by category (frontend/backend)
+ * for organized display in animated ticker.
+ */
 const frontendLogos = [
     { name: "HTML", src: HTML5Logo },
     { name: "CSS", src: CSS3Logo },
@@ -32,11 +54,23 @@ const backendLogos = [
     { name: "PostgreSQL", src: PostgreSQLLogo },
 ];
 
+/**
+ * About Component
+ * 
+ * Renders personal information, education, experience, and tech stack.
+ * Features continuously scrolling technology logo ticker.
+ */
 export const About = () => {
+    // State for horizontal scroll position of tech ticker
     const [scrollX, setScrollX] = useState(0);
     const tickerRef = useRef(null);
 
-    // Simple auto-scroll effect
+    /**
+     * Technology Ticker Auto-Scroll Effect
+     * 
+     * Continuously scrolls the technology logos horizontally.
+     * Loops seamlessly by resetting when reaching halfway point.
+     */
     useEffect(() => {
         const interval = setInterval(() => {
             setScrollX((prev) => {
@@ -47,7 +81,11 @@ export const About = () => {
         return () => clearInterval(interval);
     }, []);
 
-    // Example degrees array for dynamic growth
+    /**
+     * Education Data
+     * 
+     * Array of educational achievements with degree, institution, years, and GPA.
+     */
     const degrees = [
         {
             title: "Bachelor of Science in Computer Science",
@@ -69,6 +107,11 @@ export const About = () => {
         },
     ];
 
+    /**
+     * Professional Experience Data
+     * 
+     * Array of work experience entries with title, company, years, and duties.
+     */
     const experience = [
         {
             title: "Senior CAD Technician",

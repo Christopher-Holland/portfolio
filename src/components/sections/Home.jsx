@@ -1,13 +1,37 @@
+/**
+ * Home Component
+ * 
+ * Landing section featuring hero introduction with animated typewriter effects.
+ * Displays rotating descriptors, GitHub statistics, and a terminal-style animation.
+ * 
+ * @component
+ * @returns {JSX.Element} Home section with introduction and stats
+ */
+
 import { useState, useEffect } from "react";
 import "../../index.css";
 
+/**
+ * Home Component
+ * 
+ * Hero section with animated typewriter effects for descriptors and stats.
+ * Includes ASCII rain animation for terminal aesthetic.
+ */
 export const Home = () => {
+    // Professional descriptors that cycle through typewriter animation
     const descriptors = ["Software Engineer", "Problem Solver", "Full-Stack Developer"];
+    
+    // State for descriptor typewriter effect
     const [currentDescriptor, setCurrentDescriptor] = useState("");
     const [descriptorIndex, setDescriptorIndex] = useState(0);
     const [charIndex, setCharIndex] = useState(0);
 
-    // ✅ Hardcoded GitHub stats — update these manually as needed
+    /**
+     * GitHub Statistics
+     * 
+     * Hardcoded stats displayed in terminal window.
+     * Note: Update these manually as needed to reflect current GitHub activity.
+     */
     const [statsList] = useState([
         "Commits this year: 194",
         "Public repositories: 4",
@@ -15,14 +39,22 @@ export const Home = () => {
         "Total projects: 17",
     ]);
 
+    // Characters used for ASCII rain animation background
     const asciiChars = "01<>[]{}+-*#@";
+    
+    // State for ASCII rain: 15 lines of 30 characters each
     const [asciiLines, setAsciiLines] = useState(
         Array(15)
             .fill("")
             .map(() => Array(30).fill(" "))
     );
 
-    // Typewriter effect for descriptors
+    /**
+     * Descriptor Typewriter Effect
+     * 
+     * Cycles through professional descriptors with character-by-character animation.
+     * Automatically moves to next descriptor when current one is complete.
+     */
     useEffect(() => {
         const fullText = descriptors[descriptorIndex];
         if (charIndex < fullText.length) {
@@ -40,7 +72,12 @@ export const Home = () => {
         }
     }, [charIndex, descriptorIndex]);
 
-    // Animate ASCII rain
+    /**
+     * ASCII Rain Animation
+     * 
+     * Continuously randomizes ASCII characters to create a "matrix rain" effect
+     * in the terminal window background.
+     */
     useEffect(() => {
         const interval = setInterval(() => {
             setAsciiLines((prevLines) =>
@@ -48,16 +85,27 @@ export const Home = () => {
                     line.map(() => asciiChars[Math.floor(Math.random() * asciiChars.length)])
                 )
             );
-        }, 500);
+        }, 500); // Update every 500ms for smooth animation
+        
         return () => clearInterval(interval);
     }, []);
 
-    // Typewriter effect for stats
+    /**
+     * Statistics Typewriter Effect
+     * 
+     * State for displaying GitHub stats one character at a time in terminal window.
+     */
     const [displayStats, setDisplayStats] = useState([]);
     const [statLineIndex, setStatLineIndex] = useState(0);
     const [statCharIndex, setStatCharIndex] = useState(0);
     const [showCursor, setShowCursor] = useState(true);
 
+    /**
+     * Stats Typewriter Effect Hook
+     * 
+     * Types out GitHub statistics character by character, cycling through all stats.
+     * Similar to descriptor typewriter but operates on multiple lines.
+     */
     useEffect(() => {
         const line = statsList[statLineIndex];
         if (statCharIndex < line.length) {
@@ -85,7 +133,12 @@ export const Home = () => {
         }
     }, [statCharIndex, statLineIndex, statsList]);
 
-    // Cursor blinking effect
+    /**
+     * Cursor Blink Animation
+     * 
+     * Creates blinking cursor effect for terminal aesthetic.
+     * Toggles visibility every 500ms.
+     */
     useEffect(() => {
         const interval = setInterval(() => setShowCursor((prev) => !prev), 500);
         return () => clearInterval(interval);

@@ -1,4 +1,12 @@
-//FINISH ADDING THE image TO MY LEDGER PROJECT
+/**
+ * Projects Component
+ * 
+ * Displays a horizontally scrollable carousel of project cards.
+ * Features smooth scrolling, snap points, and project detail modal.
+ * 
+ * @component
+ * @returns {JSX.Element} Projects section with scrollable project cards
+ */
 
 import React, { useRef, useState, useEffect } from "react";
 import RevealOnScroll from "./RevealOnScroll";
@@ -6,6 +14,19 @@ import ProjectCard from "./ProjectCard";
 import ProjectModal from "../ProjectModal";
 import '../../index.css';
 
+/**
+ * Projects Data
+ * 
+ * Array of project objects containing:
+ * - title: Project name
+ * - cardDescription: Short description for card preview
+ * - modalDescription: Detailed HTML description for modal
+ * - images: Array of image URLs or single image string
+ * - thumbnail: Preview image for project card
+ * - technologies: Array of technology names
+ * - demo: Live demo URL (optional)
+ * - repo: GitHub repository URL (optional)
+ */
 const projects = [
     {
         title: "My Ledger",
@@ -71,11 +92,30 @@ const projects = [
     },
 ];
 
+/**
+ * Projects Component
+ * 
+ * Manages horizontal scrolling carousel of project cards with:
+ * - Smooth scroll snap behavior
+ * - Navigation arrows
+ * - Dot indicators
+ * - Project detail modal
+ */
 export const Projects = () => {
+    // Reference to the scrollable container
     const containerRef = useRef(null);
+    
+    // Index of currently centered/active project card
     const [currentIndex, setCurrentIndex] = useState(0);
+    
+    // Currently selected project for modal display
     const [selectedProject, setSelectedProject] = useState(null);
-    // Scroll to a project index
+    
+    /**
+     * Scrolls the container to center the project at the given index
+     * 
+     * @param {number} index - Index of the project to scroll to
+     */
     const scrollToIndex = (index) => {
         if (!containerRef.current) return;
         const container = containerRef.current;
@@ -86,29 +126,38 @@ export const Projects = () => {
         const childWidth = child.offsetWidth;
         const childLeft = child.offsetLeft;
 
-        // Calculate offset to center the child
+        // Calculate scroll offset to center the target card
         const offset = childLeft - (containerWidth / 2) + (childWidth / 2);
 
-        console.log(`Scrolling to index ${index}, offset: ${offset}, childLeft: ${childLeft}, containerWidth: ${containerWidth}, childWidth: ${childWidth}`);
-
+        // Smooth scroll to calculated position
         container.scrollTo({
             left: offset,
             behavior: "smooth"
         });
 
-        // Update current index immediately
+        // Update current index immediately for responsive UI updates
         setCurrentIndex(index);
     };
 
-    // Handle arrow clicks
+    /**
+     * Navigation Handlers
+     * 
+     * Navigate to previous/next project in the carousel
+     */
     const handlePrev = () => {
         if (currentIndex > 0) scrollToIndex(currentIndex - 1);
     };
+    
     const handleNext = () => {
         if (currentIndex < projects.length - 1) scrollToIndex(currentIndex + 1);
     };
 
-    // Update current index on scroll
+    /**
+     * Scroll Event Handler
+     * 
+     * Updates currentIndex based on which card is closest to the center
+     * when user manually scrolls the container.
+     */
     const handleScroll = () => {
         if (!containerRef.current) return;
         const container = containerRef.current;
@@ -116,8 +165,10 @@ export const Projects = () => {
 
         if (children.length === 0) return;
 
+        // Calculate container center point
         const containerCenter = container.scrollLeft + container.offsetWidth / 2;
 
+        // Find the card closest to the center
         let closestIndex = 0;
         let minDistance = Infinity;
 
@@ -125,42 +176,44 @@ export const Projects = () => {
             const childCenter = child.offsetLeft + child.offsetWidth / 2;
             const distance = Math.abs(childCenter - containerCenter);
 
+            // Track the closest card to center
             if (distance < minDistance) {
                 minDistance = distance;
                 closestIndex = index;
             }
         });
 
-        console.log(`Scroll detected - closestIndex: ${closestIndex}, currentIndex: ${currentIndex}, scrollLeft: ${container.scrollLeft}`);
-
-        // Only update if the index actually changed
+        // Only update state if index actually changed to prevent unnecessary re-renders
         if (closestIndex !== currentIndex) {
             setCurrentIndex(closestIndex);
         }
     };
 
+    /**
+     * Scroll Listener Setup
+     * 
+     * Attaches scroll event listener and initializes scroll position
+     * to center the first card on mount.
+     */
     useEffect(() => {
         const container = containerRef.current;
         if (!container) return;
 
-        // Add scroll event listener
+        // Add scroll listener with passive flag for better performance
         container.addEventListener("scroll", handleScroll, { passive: true });
 
-        // Initial scroll to first card centered after a short delay
+        // Initial scroll to center first card after a brief delay
+        // This ensures layout is complete before calculating scroll positions
         const timer = setTimeout(() => {
             scrollToIndex(0);
         }, 200);
 
+        // Cleanup: remove event listener and clear timeout
         return () => {
             container.removeEventListener("scroll", handleScroll);
             clearTimeout(timer);
         };
     }, []);
-
-    // Debug current index changes
-    useEffect(() => {
-        console.log(`Current index changed to: ${currentIndex}`);
-    }, [currentIndex]);
 
     return (
         <section

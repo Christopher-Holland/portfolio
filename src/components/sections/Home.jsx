@@ -144,6 +144,23 @@ export const Home = () => {
         return () => clearInterval(interval);
     }, []);
 
+    /**
+     * Download Resume Handler
+     * 
+     * Triggers download of the resume PDF file from the public folder.
+     * Creates a temporary anchor element to initiate the download.
+     */
+    const handleDownloadResume = () => {
+        // Create a temporary anchor element
+        const link = document.createElement('a');
+        link.href = '/portfolio/Christopher_Holland_Resume.pdf';
+        link.download = 'Christopher_Holland_Resume.pdf';
+        link.target = '_blank'; // Fallback: open in new tab if download fails
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    };
+
     return (
         <section
             id="home"
@@ -179,6 +196,12 @@ export const Home = () => {
                     >
                         Contact Me
                     </a>
+                    <button 
+                        onClick={handleDownloadResume}
+                        className="relative py-3 px-6 rounded border border-[#00ffcc] font-medium glow-text hover:shadow-[0_0_10px_#00ffaa] hover:bg-[#00ffcc]/10 hover:-translate-y-0.5 transition text-center text-sm sm:text-base"
+                    >
+                        Download Resume
+                    </button>
                 </div>
             </div>
 

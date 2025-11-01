@@ -65,8 +65,8 @@ const projects = [
         cardDescription:
             "An upcoming project that will be added soon — stay tuned for more updates.",
         modalDescription: "tbd",
-        images: "/portfolio/images/coming-soon.png",
-        thumbnail: "/portfolio/images/coming-soon.png",
+        images: "/portfolio/images/Launching-Soon.jpg",
+        thumbnail: "/portfolio/images/Launching-Soon.jpg",
         technologies: ["TBD"],
     },
 ];

@@ -87,10 +87,10 @@ const projects = [
         modalDescription: `
             <p><strong>Overview:</strong> This project management application was built to help users organize their work, track tasks, and keep important notes centralized in a simple, intuitive dashboard. It focuses on usability, clarity, and fast interaction for everyday project tracking.</p>
             <ul>
-                <li>Built with modern React and component-based architecture</li>
+                <li>Built with modern Next.js and component-based architecture</li>
                 <li>Includes task tracking with status updates and priority levels</li>
                 <li>Features a general notes section for quick reminders and team communication</li>
-                <li>Designed with a responsive layout for desktop and mobile use</li>
+                <li>Designed with a responsive layout for desktop</li>
                 <li>Implements clean UI/UX patterns for easy navigation and minimal learning curve</li>
             </ul>
             <p>This project demonstrates my ability to design and build practical productivity tools with a focus on clean state management, user experience, and scalable front-end structure.</p>

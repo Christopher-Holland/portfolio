@@ -82,6 +82,33 @@ const projects = [
         repo: "https://github.com/Christopher-Holland/portfolio.git",
     },
     {
+        title: "ProjectManager",
+        cardDescription: "A lightweight project management app for tracking tasks, notes, and progress in one place with a clean, user-friendly interface.",
+        modalDescription: `
+            <p><strong>Overview:</strong> This project management application was built to help users organize their work, track tasks, and keep important notes centralized in a simple, intuitive dashboard. It focuses on usability, clarity, and fast interaction for everyday project tracking.</p>
+            <ul>
+                <li>Built with modern React and component-based architecture</li>
+                <li>Includes task tracking with status updates and priority levels</li>
+                <li>Features a general notes section for quick reminders and team communication</li>
+                <li>Designed with a responsive layout for desktop and mobile use</li>
+                <li>Implements clean UI/UX patterns for easy navigation and minimal learning curve</li>
+            </ul>
+            <p>This project demonstrates my ability to design and build practical productivity tools with a focus on clean state management, user experience, and scalable front-end structure.</p>
+        `,
+        images: [
+            "/portfolio/images/project-manager/LandingPage.png",
+            "/portfolio/images/project-manager/Goals.png",
+            "/portfolio/images/project-manager/Tasks.png",
+            "/portfolio/images/project-manager/Timeline.png",
+            "/portfolio/images/project-manager/Notes.png",
+        ]
+        ,
+        thumbnail: "/portfolio/images/project-manager/Goals.png",
+        technologies: ["Next.js", "TypeScript", "TailwindCSS", "Neon/PostgreSQL", "Stack Auth", "Prisma", "Vercel"],
+        demo: "project-manager-cholland.vercel.app",
+        repo: "https://github.com/Christopher-Holland/ProjectManager.git",
+    },
+    {
         title: "Next Project Placeholder",
         cardDescription:
             "An upcoming project that will be added soon — stay tuned for more updates.",
@@ -90,6 +117,7 @@ const projects = [
         thumbnail: "/portfolio/images/Launching-Soon.jpg",
         technologies: ["TBD"],
     },
+
 ];
 
 /**
@@ -104,13 +132,13 @@ const projects = [
 export const Projects = () => {
     // Reference to the scrollable container
     const containerRef = useRef(null);
-    
+
     // Index of currently centered/active project card
     const [currentIndex, setCurrentIndex] = useState(0);
-    
+
     // Currently selected project for modal display
     const [selectedProject, setSelectedProject] = useState(null);
-    
+
     /**
      * Scrolls the container to center the project at the given index
      * 
@@ -147,7 +175,7 @@ export const Projects = () => {
     const handlePrev = () => {
         if (currentIndex > 0) scrollToIndex(currentIndex - 1);
     };
-    
+
     const handleNext = () => {
         if (currentIndex < projects.length - 1) scrollToIndex(currentIndex + 1);
     };
